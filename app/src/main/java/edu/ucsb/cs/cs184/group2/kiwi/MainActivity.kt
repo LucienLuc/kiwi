@@ -39,32 +39,5 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val fab: FloatingActionButton = findViewById(R.id.floatingActionButton)
-        fab.setOnClickListener{
-            testFirebase()
-        }
-
-        val database = Firebase.database
-        val myRef = database.getReference("message")
-
-        myRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                val value = dataSnapshot.getValue()
-                Log.d("Test", "Value is: $value")
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-                Log.w("Test", "Failed to read value.", error.toException())
-            }
-        })
-    }
-    private fun testFirebase() {
-        val database = Firebase.database
-        val myRef = database.getReference("message")
-
-        myRef.setValue("Hello, World!")
     }
 }
