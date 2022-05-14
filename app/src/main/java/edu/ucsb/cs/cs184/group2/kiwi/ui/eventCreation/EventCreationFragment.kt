@@ -51,13 +51,12 @@ class EventCreationFragment : Fragment() {
         val dateTextView: TextView = binding.editTextDate
         val locationTextView: TextView = binding.editTextLocation
 
-//        myRef.setValue("Hello, World!")
         val keyedEventsReference: DatabaseReference = eventsRef.push()
 
-        keyedEventsReference.child("name").setValue(nameTextView.text)
-        keyedEventsReference.child("time").setValue(timeTextView.text)
-        keyedEventsReference.child("date").setValue(dateTextView.text)
-        keyedEventsReference.child("location").setValue(locationTextView.text)
+        keyedEventsReference.child("name").setValue(nameTextView.text.toString())
+        keyedEventsReference.child("time").setValue(timeTextView.text.toString())
+        keyedEventsReference.child("date").setValue(dateTextView.text.toString())
+        keyedEventsReference.child("location").setValue(locationTextView.text.toString())
 
 //        myRef.addValueEventListener(object : ValueEventListener {
 //            override fun onDataChange(dataSnapshot: DataSnapshot) {
