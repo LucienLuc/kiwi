@@ -3,6 +3,12 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="event_creation_title_width">140dp</dimen>
+    <dimen name="event_creation_title_width">180dp</dimen>
     <dimen name="event_creation_title_height">30dp</dimen>
+    <dimen name="event_creation_subtitle_width">120dp</dimen>
+    <dimen name="event_creation_subtitle_height">20dp</dimen>
+    <dimen name="event_creation_small_editText_width">120dp</dimen>
+    <dimen name="event_creation_small_editText_height">40dp</dimen>
+    <dimen name="event_creation_editText_width">200dp</dimen>
+    <dimen name="event_creation_editText_height">40dp</dimen>
 </resources>
