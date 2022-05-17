@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/drawable/rounded_edittext.xml" value="0.2685" />
         <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/font/lobster.xml" value="0.3307291666666667" />
+        <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/layout-land/fragment_event_creation.xml" value="0.4421875" />
+        <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/layout/fragment_dashboard.xml" value="0.3" />
         <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/layout/fragment_event_creation.xml" value="0.30052083333333335" />
+        <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/menu/bottom_nav_menu.xml" value="0.30052083333333335" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
       </map>
