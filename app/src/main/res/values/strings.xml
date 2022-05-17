@@ -3,4 +3,14 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_event_creation">Create Event</string>
+
+
+<!--fragment_event_description.xml-->
+    <string name="description_event_title">Event: </string>
+    <string name="description_host_text">Hosted By: </string>
+    <string name="description_date_text">Date: </string>
+    <string name="description_description_text">Description: </string>
+    <string name="description_location_text">Location: </string>
+
+
 </resources>

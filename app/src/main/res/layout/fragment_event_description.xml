@@ -10,10 +10,10 @@
         android:id="@+id/eventText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Event: "
+        android:text="@string/description_event_title"
         app:layout_constraintBottom_toTopOf="@+id/hostText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,7 +21,7 @@
         android:id="@+id/hostText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hosted By: "
+        android:text="@string/description_host_text"
         app:layout_constraintBottom_toTopOf="@+id/dateText"
         app:layout_constraintStart_toStartOf="@+id/eventText"
         app:layout_constraintTop_toBottomOf="@+id/eventText" />
@@ -30,7 +30,7 @@
         android:id="@+id/dateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date: "
+        android:text="@string/description_date_text"
         app:layout_constraintBottom_toTopOf="@+id/locationText"
         app:layout_constraintStart_toStartOf="@+id/hostText"
         app:layout_constraintTop_toBottomOf="@+id/hostText" />
@@ -39,7 +39,7 @@
         android:id="@+id/descriptionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description: "
+        android:text="@string/description_description_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/locationText"
         app:layout_constraintTop_toBottomOf="@+id/locationText" />
@@ -48,7 +48,7 @@
         android:id="@+id/locationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Location: "
+        android:text="@string/description_location_text"
         app:layout_constraintBottom_toTopOf="@+id/descriptionText"
         app:layout_constraintStart_toStartOf="@+id/dateText"
         app:layout_constraintTop_toBottomOf="@+id/dateText" />
