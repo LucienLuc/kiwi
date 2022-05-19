@@ -1,4 +1,4 @@
-package edu.ucsb.cs.cs184.group2.kiwi.ui.dashboard
+package edu.ucsb.cs.cs184.group2.kiwi.ui.eventDescription
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,7 +28,13 @@ class EventDescriptionFragment : Fragment() {
         _binding = FragmentEventDescriptionBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        val eventText: TextView = binding.textDashboard
+        val eventText: TextView = binding.eventText
+        val hostText: TextView = binding.hostText
+        val dateText: TextView = binding.dateText
+        val descriptionText: TextView = binding.descriptionText
+        val locationText: TextView = binding.locationText
+
+
 //        dashboardViewModel.text.observe(viewLifecycleOwner) {
 //            eventText.text = it
 //        }

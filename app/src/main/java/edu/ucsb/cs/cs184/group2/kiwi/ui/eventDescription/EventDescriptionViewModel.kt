@@ -1,4 +1,4 @@
-package edu.ucsb.cs.cs184.group2.kiwi.ui.dashboard
+package edu.ucsb.cs.cs184.group2.kiwi.ui.eventDescription
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

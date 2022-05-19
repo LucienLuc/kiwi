@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.EventDescriptionFragment">
+    tools:context=".ui.eventDescription.EventDescriptionFragment">
 
     <TextView
         android:id="@+id/eventText"
@@ -52,4 +52,5 @@
         app:layout_constraintBottom_toTopOf="@+id/descriptionText"
         app:layout_constraintStart_toStartOf="@+id/dateText"
         app:layout_constraintTop_toBottomOf="@+id/dateText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

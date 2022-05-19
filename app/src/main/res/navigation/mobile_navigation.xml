@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.dashboard.EventDescriptionFragment"
+        android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.eventDescription.EventDescriptionFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_event_description" />
 
