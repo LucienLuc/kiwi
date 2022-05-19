@@ -5,9 +5,19 @@
     <string name="title_event_creation">Create Event</string>
 
 
+<!--fragment_event_description.xml-->
+    <string name="description_event_title">Event: </string>
+    <string name="description_host_text">Hosted By: </string>
+    <string name="description_date_text">Date: </string>
+    <string name="description_description_text">Description: </string>
+    <string name="description_location_text">Location: </string>
+
+    <string name="title_events_list">View Events </string>
+
     <string name="event_creation_name">Name: </string>
     <string name="event_creation_datentime">Date and Time: </string>
     <string name="event_creation_location">Location: </string>
+
     <string name="event_creation_date">Date: </string>
     <string name="event_creation_time">Time: </string>
     <string name="event_creation_description">Description: </string>
