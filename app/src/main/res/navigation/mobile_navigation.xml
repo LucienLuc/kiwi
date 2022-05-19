@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/navigation_events_list"
+        android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.eventsList.EventsListFragment"
+        android:label="@string/title_events_list"
+        tools:layout="@layout/fragment_events_list" />
+
+    <fragment
         android:id="@+id/navigation_dashboard"
         android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.eventDescription.EventDescriptionFragment"
         android:label="@string/title_dashboard"

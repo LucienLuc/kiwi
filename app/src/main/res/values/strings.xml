@@ -12,5 +12,10 @@
     <string name="description_description_text">Description: </string>
     <string name="description_location_text">Location: </string>
 
+    <string name="title_events_list">View Events </string>
+
+    <string name="event_creation_name">Name: </string>
+    <string name="event_creation_datentime">Date and Time: </string>
+    <string name="event_creation_location">Location: </string>
 
 </resources>
