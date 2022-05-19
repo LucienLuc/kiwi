@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.eventCreation.EventCreationFragment">
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="@dimen/event_creation_title_width"
+        android:layout_height="@dimen/event_creation_title_height"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:fontFamily="@font/signika"
+        android:text="@string/event_creation_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewDateNTime"
+        android:layout_width="@dimen/event_creation_title_width"
+        android:layout_height="@dimen/event_creation_title_height"
+        android:fontFamily="@font/signika"
+        android:text="@string/event_creation_datentime"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textViewLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewName" />
+
+    <TextView
+        android:id="@+id/textViewLocation"
+        android:layout_width="@dimen/event_creation_title_width"
+        android:layout_height="@dimen/event_creation_title_height"
+        android:fontFamily="@font/signika"
+        android:text="@string/event_creation_location"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDateNTime" />
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="@dimen/event_creation_large_editText_width"
+        android:layout_height="@dimen/event_creation_editText_height"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/textViewName"
+        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="@dimen/event_creation_small_editText_width"
+        android:layout_height="@dimen/event_creation_small_editText_height"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="@+id/textViewDate"
+        app:layout_constraintStart_toStartOf="@+id/textViewDate"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
+
+    <EditText
+        android:id="@+id/editTextTime"
+        android:layout_width="@dimen/event_creation_small_editText_width"
+        android:layout_height="@dimen/event_creation_small_editText_height"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:inputType="time"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/textViewTime"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTime" />
+
+    <EditText
+        android:id="@+id/editTextLocation"
+        android:layout_width="@dimen/event_creation_editText_width"
+        android:layout_height="@dimen/event_creation_editText_height"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/textViewLocation"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLocation" />
+
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="@dimen/event_creation_subtitle_width"
+        android:layout_height="@dimen/event_creation_subtitle_height"
+        android:fontFamily="@font/signika"
+        android:text="@string/event_creation_time"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textViewDateNTime"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDateNTime" />
+
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="@dimen/event_creation_subtitle_width"
+        android:layout_height="@dimen/event_creation_subtitle_height"
+        android:fontFamily="@font/signika"
+        android:text="@string/event_creation_date"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewTime"
+        app:layout_constraintTop_toTopOf="@+id/textViewTime" />
+
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:backgroundTint="#afeeee"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editTextLocation"
+        app:layout_constraintTop_toTopOf="@+id/editTextLocation" />
+
+    <TextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="@dimen/event_creation_title_width"
+        android:layout_height="@dimen/event_creation_title_height"
+        android:layout_marginBottom="64dp"
+        android:fontFamily="@font/signika"
+        android:text="@string/event_creation_description"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/editTextDescription"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLocation" />
+
+    <EditText
+        android:id="@+id/editTextDescription"
+        android:layout_width="@dimen/event_creation_large_editText_width"
+        android:layout_height="@dimen/event_creation_large_editText_height"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
