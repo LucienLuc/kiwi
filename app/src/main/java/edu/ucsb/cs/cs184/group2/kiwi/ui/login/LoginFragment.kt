@@ -52,8 +52,8 @@ class LoginFragment : Fragment() {
 
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
-        // val account : GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(context as Context)
         // TODO: Update UI in case already logged in
+        // val account : GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(context as Context)
         // updateUI(account)
 
         val textView: TextView = binding.textLogin
