@@ -4,4 +4,13 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_login">Login</string>
+    <string name="title_event_creation">Create Event</string>
+
+
+    <string name="event_creation_name">Name: </string>
+    <string name="event_creation_datentime">Date and Time: </string>
+    <string name="event_creation_location">Location: </string>
+    <string name="event_creation_date">Date: </string>
+    <string name="event_creation_time">Time: </string>
+    <string name="event_creation_description">Description: </string>
 </resources>
