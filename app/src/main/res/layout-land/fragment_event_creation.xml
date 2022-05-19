@@ -136,7 +136,7 @@
         app:layout_constraintEnd_toEndOf="@+id/editTextLocation"
         app:layout_constraintStart_toStartOf="@+id/editTextLocation"
         app:layout_constraintTop_toBottomOf="@+id/editTextDate"
-        app:layout_constraintVertical_bias="0.22000003" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
         android:id="@+id/textViewDescription"
