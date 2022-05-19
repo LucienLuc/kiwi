@@ -21,17 +21,39 @@ class EventCreationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val eventCreationViewModel =
-            ViewModelProvider(this).get(EventCreationViewModel::class.java)
+        val eventCreationViewModel = ViewModelProvider(this).get(EventCreationViewModel::class.java)
 
         _binding = FragmentEventCreationBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        eventCreationViewModel.editTextName.observe(viewLifecycleOwner){
+            binding.editTextName.text = it
+        }
+        eventCreationViewModel.editTextTime.observe(viewLifecycleOwner){
+            binding.editTextTime.text = it
+        }
+        eventCreationViewModel.editTextDate.observe(viewLifecycleOwner){
+            binding.editTextDate.text = it
+        }
+        eventCreationViewModel.editTextLocation.observe(viewLifecycleOwner){
+            binding.editTextLocation.text = it
+        }
+        eventCreationViewModel.editTextDescription.observe(viewLifecycleOwner){
+            binding.editTextDescription.text = it
+        }
 
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        val eventCreationViewModel = ViewModelProvider(this).get(EventCreationViewModel::class.java)
+        eventCreationViewModel.updateName(binding.editTextName.text)
+        eventCreationViewModel.updateTime(binding.editTextName.text)
+        eventCreationViewModel.updateDate(binding.editTextName.text)
+        eventCreationViewModel.updateLocation(binding.editTextName.text)
+        eventCreationViewModel.updateDescription(binding.editTextName.text)
+
         _binding = null
     }
 }
