@@ -3,18 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/drawable/rounded_edittext.xml" value="0.2685" />
-        <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/font/lobster.xml" value="0.3307291666666667" />
-        <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/layout-land/fragment_event_creation.xml" value="0.4421875" />
-        <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/layout/fragment_dashboard.xml" value="0.3" />
-        <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/layout/fragment_event_creation.xml" value="0.30052083333333335" />
-        <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/layout/fragment_home.xml" value="0.1" />
-        <entry key="..\:/Users/Reile/Documents/CS184/kiwi/app/src/main/res/menu/bottom_nav_menu.xml" value="0.30052083333333335" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/drawable/ic_login_black_24dp.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.21944444444444444" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.21944444444444444" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.3338541666666667" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
