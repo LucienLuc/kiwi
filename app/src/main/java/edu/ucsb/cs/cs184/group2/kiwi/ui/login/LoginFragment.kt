@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +21,7 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentLoginBinding
-
+import edu.ucsb.cs.cs184.group2.kiwi.ui.AccountViewModel
 
 class LoginFragment : Fragment() {
 
@@ -35,7 +36,9 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
+        val accountViewModel =
+            ViewModelProvider(this)[AccountViewModel::class.java]
+        val loginViewModel =
             ViewModelProvider(this).get(LoginViewModel::class.java)
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
@@ -52,19 +55,25 @@ class LoginFragment : Fragment() {
 
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
-        // TODO: Update UI in case already logged in
-        // val account : GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(context as Context)
-        // updateUI(account)
+        val account : GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(context as Context)
+        updateUI(account)
 
         val textView: TextView = binding.textLogin
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
+        loginViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
 
-        val button : SignInButton = binding.signInButton
-        button.setOnClickListener {
+        val signInButton : SignInButton = binding.signInButton
+        signInButton.setOnClickListener {
             val signInIntent = mGoogleSignInClient.signInIntent
             startActivityForResult(signInIntent, 1)
+        }
+
+        val signOutButton : Button = binding.signOutButton
+        signOutButton.setOnClickListener {
+            mGoogleSignInClient.signOut()
+            updateUI(null)
+            Log.i("LoginFragment", "Signing out...")
         }
 
         return root
@@ -75,7 +84,7 @@ class LoginFragment : Fragment() {
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == 1) {
-            // The Task returned from this call is always completed, no need to attach
+            // The Task returned from;this call is always completed, no need to attach
             // a listener.
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
@@ -87,19 +96,50 @@ class LoginFragment : Fragment() {
             val account : GoogleSignInAccount = completedTask.getResult(ApiException::class.java)
 
             // Signed in successfully, show authenticated UI.
-            // TODO: Update UI on login
             updateUI(account)
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult: failed code " + e.statusCode)
-            // TODO: Update UI on login
             updateUI(null)
         }
     }
 
     private fun updateUI(account : GoogleSignInAccount? ) {
-        Log.i("LoginFragment", account?.displayName!!)
+        if (account != null) {
+            val loginViewModel =
+                ViewModelProvider(this).get(LoginViewModel::class.java)
+            val accountViewModel =
+                ViewModelProvider(this)[AccountViewModel::class.java]
+
+            // Update text on Login Page
+            val text : String = "Welcome, " + account.displayName!! + "."
+            loginViewModel.updateText(text)
+            val textView: TextView = binding.textLogin
+            textView.text = text
+
+            // Update what account is logged in
+            accountViewModel.updateAccount(account)
+
+            Log.i("LoginFragment", account.displayName!! + " is logged in.")
+        } else {
+            val loginViewModel =
+                ViewModelProvider(this).get(LoginViewModel::class.java)
+            val accountViewModel =
+                ViewModelProvider(this)[AccountViewModel::class.java]
+
+            // Update text on Login Page
+            val text : String = "This is the login page."
+            loginViewModel.updateText(text)
+            val textView: TextView = binding.textLogin
+            textView.text = text
+
+            // Update what account is logged in
+            accountViewModel.updateAccount(null)
+
+            Log.i("LoginFragment", "No one is logged in.")
+        }
+
     }
 
     override fun onDestroyView() {

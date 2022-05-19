@@ -5,9 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class LoginViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is login Fragment"
+    val _text = MutableLiveData<String>().apply {
+        value = "This is the login page."
     }
-    val text: LiveData<String> = _text
+    var text : LiveData<String> = _text
+
+    fun updateText(t : String) {
+        val _greet = MutableLiveData<String>().apply {
+            value = t
+        }
+        text = _greet
+    }
 }
