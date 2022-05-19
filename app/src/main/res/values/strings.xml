@@ -3,9 +3,10 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_event_creation">Create Event</string>
-
+    <string name="title_events_list">View Events </string>
 
     <string name="event_creation_name">Name: </string>
     <string name="event_creation_datentime">Date and Time: </string>
     <string name="event_creation_location">Location: </string>
+
 </resources>
