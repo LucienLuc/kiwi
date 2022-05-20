@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -31,6 +30,8 @@ class EventCreationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val eventCreationViewModel = ViewModelProvider(this).get(EventCreationViewModel::class.java)
+        _binding = FragmentEventCreationBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
         eventCreationViewModel.editTextName.observe(viewLifecycleOwner){
             binding.editTextName.text = it

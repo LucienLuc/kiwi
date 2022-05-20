@@ -22,8 +22,7 @@ class EventDescriptionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(EventDescriptionViewModel::class.java)
+        val eventDescriptionViewModel = ViewModelProvider(this).get(EventDescriptionViewModel::class.java)
 
         _binding = FragmentEventDescriptionBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -34,10 +33,31 @@ class EventDescriptionFragment : Fragment() {
         val descriptionText: TextView = binding.descriptionText
         val locationText: TextView = binding.locationText
 
+        eventDescriptionViewModel.textName.observe(viewLifecycleOwner){
+            binding.textViewEventName.text = it
+        }
+        eventDescriptionViewModel.textHostName.observe(viewLifecycleOwner){
+            binding.textViewHostName.text = it
+        }
+        eventDescriptionViewModel.textTime.observe(viewLifecycleOwner){
+            binding.textViewEventTime.text = it
+        }
+        eventDescriptionViewModel.textDate.observe(viewLifecycleOwner){
+            binding.textViewEventDate.text = it
+        }
+        eventDescriptionViewModel.textLocation.observe(viewLifecycleOwner){
+            binding.textViewEventLocation.text = it
+        }
+        eventDescriptionViewModel.textDescription.observe(viewLifecycleOwner){
+            binding.textViewEventDescription.text = it
+        }
 
-//        dashboardViewModel.text.observe(viewLifecycleOwner) {
-//            eventText.text = it
-//        }
+        eventDescriptionViewModel.updateName("Anime Day")
+        eventDescriptionViewModel.updateHostName("Jimmy Brown")
+        eventDescriptionViewModel.updateDate("Feb 16th, 2022")
+        eventDescriptionViewModel.updateTime("2:00 PM")
+        eventDescriptionViewModel.updateDescription("Looking for fellow anime watchers to talk about seasonal anime episodes every week!")
+        eventDescriptionViewModel.updateLocation("Tropicana Villas \nIsla Vista CA 93117")
         return root
     }
 
