@@ -9,6 +9,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
+import edu.ucsb.cs.cs184.group2.kiwi.R
 import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentEventsListBinding
 import edu.ucsb.cs.cs184.group2.kiwi.views.EventsView
 
@@ -45,6 +47,11 @@ class EventsListFragment : Fragment() {
                 eventView.setTime(e.time)
                 eventView.setDate(e.date)
                 eventView.setLocation(e.location)
+
+                eventView.setOnClickListener{
+                    it.findNavController().navigate(R.id.action_navigation_events_list_to_navigation_dashboard)
+                }
+
                 viewList.add(eventView)
                 viewListIds.add(eventView.id)
 
