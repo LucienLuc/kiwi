@@ -50,6 +50,11 @@ class EventsListFragment : Fragment() {
                 eventView.setTime(e.time)
                 eventView.setDate(e.date)
                 eventView.setLocation(e.location)
+
+                eventView.setOnClickListener{
+                    it.findNavController().navigate(R.id.action_navigation_events_list_to_navigation_dashboard)
+                }
+
                 viewList.add(eventView)
                 viewListIds.add(eventView.id)
 
