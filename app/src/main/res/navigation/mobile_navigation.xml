@@ -17,15 +17,16 @@
         android:label="@string/title_events_list"
         tools:layout="@layout/fragment_events_list" >
         <action
-            android:id="@+id/action_navigation_events_list_to_navigation_dashboard"
-            app:destination="@id/navigation_dashboard" />
+            android:id="@+id/action_navigation_events_list_to_navigation_events_description"
+            app:destination="@id/navigation_event_description" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_event_description"
         android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.eventDescription.EventDescriptionFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_event_description" />
+        tools:layout="@layout/fragment_event_description">
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_event_creation"

@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import edu.ucsb.cs.cs184.group2.kiwi.databinding.ActivityMainBinding
+import edu.ucsb.cs.cs184.group2.kiwi.ui.common.Event
 import edu.ucsb.cs.cs184.group2.kiwi.ui.eventsList.EventsListViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_events_list
+                R.id.navigation_home, R.id.navigation_events_list, R.id.navigation_event_creation
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 val value = dataSnapshot.value
                 if (dataSnapshot.hasChildren()) {
                     val iter: Iterator<DataSnapshot> = dataSnapshot.children.iterator()
-                    val eventsList = ArrayList<EventsListViewModel.Event>()
+                    val eventsList = ArrayList<Event>()
                     while (iter.hasNext()) {
                         val snap = iter.next()
                         val nodId = snap.key
@@ -66,8 +67,9 @@ class MainActivity : AppCompatActivity() {
                         val date = snap.child("date").value as String
                         val time = snap.child("time").value as String
                         val location = snap.child("location").value as String
+                        val description = snap.child("description").value as String
 
-                        val event = EventsListViewModel.Event(name, date, time, location)
+                        val event = Event(name, date, time, location, description)
                         eventsList.add(event)
 
                         //received results

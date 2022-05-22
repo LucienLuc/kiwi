@@ -1,7 +1,6 @@
 package edu.ucsb.cs.cs184.group2.kiwi.ui.eventCreation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentEventCreationBinding
@@ -50,14 +46,18 @@ class EventCreationFragment : Fragment() {
         val timeTextView: TextView = binding.editTextTime
         val dateTextView: TextView = binding.editTextDate
         val locationTextView: TextView = binding.editTextLocation
+        val descriptionTextView: TextView = binding.editTextDescription
 
         val keyedEventsReference: DatabaseReference = eventsRef.push()
 
-        keyedEventsReference.child("name").setValue(nameTextView.text.toString())
-        keyedEventsReference.child("time").setValue(timeTextView.text.toString())
-        keyedEventsReference.child("date").setValue(dateTextView.text.toString())
-        keyedEventsReference.child("location").setValue(locationTextView.text.toString())
+        val values: MutableMap<String, Any> = HashMap()
+        values["name"] = nameTextView.text.toString()
+        values["time"] = timeTextView.text.toString()
+        values["date"] = dateTextView.text.toString()
+        values["location"] = locationTextView.text.toString()
+        values["description"] = descriptionTextView.text.toString()
 
+        keyedEventsReference.setValue(values)
 
     }
 
