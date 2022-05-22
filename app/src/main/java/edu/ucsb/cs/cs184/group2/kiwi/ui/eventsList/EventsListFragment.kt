@@ -8,8 +8,13 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
+import edu.ucsb.cs.cs184.group2.kiwi.R
 import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentEventsListBinding
+import edu.ucsb.cs.cs184.group2.kiwi.ui.eventCreation.EventCreationFragment
 import edu.ucsb.cs.cs184.group2.kiwi.views.EventsView
 
 class EventsListFragment : Fragment() {
@@ -47,6 +52,16 @@ class EventsListFragment : Fragment() {
                 eventView.setLocation(e.location)
                 viewList.add(eventView)
                 viewListIds.add(eventView.id)
+
+                eventView.setOnClickListener{
+                    it.findNavController().navigate(R.id.action_navigation_events_list_to_navigation_dashboard)
+//                    val fragment: Fragment = EventCreationFragment()
+//                    val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+//                    val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+//                    fragmentTransaction.replace(binding.root.id, fragment)
+//                    fragmentTransaction.addToBackStack(null)
+//                    fragmentTransaction.commit()
+                }
 
                 Log.d("EventsListFragment", "Updated from view model")
             }
