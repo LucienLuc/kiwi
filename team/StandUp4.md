@@ -14,8 +14,8 @@ Goal: <br />
 - Fragment to Fragment Navigation <br />
 - (later on after MVP) Upload images, Messaging, Login, Edit Event <br />
 
-Christine - I am working on fragment to fragment navigation (events list to events description) <br />
-Lucien - I am working on setting up going back to a fragment <br />
+Christine - I am working on helping Lucien with fragment to fragment navigation (events list to events description) <br />
+Lucien - I am working on setting up going back to a fragment, and fragment to fragment navigation <br />
 Alan - I am working on setting up Login <br />
 Reiley - I am working on making events list visually better. <br />
 Khalid - I am working on setting up Messaging <br />
