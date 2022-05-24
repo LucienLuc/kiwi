@@ -1,10 +1,15 @@
 package edu.ucsb.cs.cs184.group2.kiwi.ui.eventsList
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.SearchView
+import android.widget.TextView.OnEditorActionListener
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
@@ -20,8 +25,7 @@ class EventsListFragment : Fragment() {
 
     private var _binding: FragmentEventsListBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
     private var viewList: ArrayList<View> = ArrayList()
@@ -39,6 +43,7 @@ class EventsListFragment : Fragment() {
         _binding = FragmentEventsListBinding.inflate(inflater, container, false)
         val constraintLayout: ConstraintLayout = ConstraintLayout(requireContext())
         val constraintSet: ConstraintSet = ConstraintSet()
+        val search: SearchView = binding.searchEditText
 
         eventsListViewModel.events.observe(viewLifecycleOwner) { it ->
             viewList.clear()
@@ -113,7 +118,7 @@ class EventsListFragment : Fragment() {
 
         }
 
-        binding.root.addView(constraintLayout)
+        binding.scrollView.addView(constraintLayout)
 
         val root: View = binding.root
         return root
@@ -123,6 +128,4 @@ class EventsListFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

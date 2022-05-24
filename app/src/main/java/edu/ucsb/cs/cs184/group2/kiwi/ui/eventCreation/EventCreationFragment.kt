@@ -26,7 +26,6 @@ class EventCreationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val eventCreationViewModel = ViewModelProvider(this).get(EventCreationViewModel::class.java)
-
         _binding = FragmentEventCreationBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
