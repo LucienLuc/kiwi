@@ -29,6 +29,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_login"
+        android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.login.LoginFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
         android:id="@+id/navigation_event_creation"
         android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.eventCreation.EventCreationFragment"
         android:label="@string/title_event_creation"

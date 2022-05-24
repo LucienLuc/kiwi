@@ -12,6 +12,25 @@ class EventCreationViewModel : ViewModel() {
     private val _editTextLocation = MutableLiveData<Editable>()
     private val _editTextDescription = MutableLiveData<Editable>()
 
+    fun updateName(t: Editable){
+        _editTextName.value = t
+    }
+
+    fun updateTime(t: Editable){
+        _editTextTime.value = t
+    }
+
+    fun updateDate(t: Editable){
+        _editTextDate.value = t
+    }
+
+    fun updateLocation(t: Editable){
+        _editTextLocation.value = t
+    }
+
+    fun updateDescription(t: Editable){
+        _editTextDescription.value = t
+    }
 
     val editTextName: LiveData<Editable> = _editTextName
     val editTextTime: LiveData<Editable> = _editTextTime
