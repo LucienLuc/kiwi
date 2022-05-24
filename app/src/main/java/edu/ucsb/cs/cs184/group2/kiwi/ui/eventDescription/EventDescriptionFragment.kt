@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentEventDescriptionBinding
+import org.w3c.dom.Text
 
 
 class EventDescriptionFragment : Fragment() {
@@ -33,36 +34,20 @@ class EventDescriptionFragment : Fragment() {
         _binding = FragmentEventDescriptionBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val eventText: TextView = binding.eventText
-        val hostText: TextView = binding.hostText
-        val dateText: TextView = binding.dateText
-        val descriptionText: TextView = binding.descriptionText
-        val locationText: TextView = binding.locationText
+        val eventText: TextView = binding.textViewEventName
+        val hostText: TextView = binding.textViewHostName
+        val dateText: TextView = binding.textViewEventDate
+        val timeText: TextView = binding.textViewEventTime
+        val descriptionText: TextView = binding.textViewEventDescription
+        val locationText: TextView = binding.textViewEventLocation
 
         setHasOptionsMenu(true)
-        eventDescriptionViewModel.textName.observe(viewLifecycleOwner){
-            binding.textViewEventName.text = it
-        }
-        eventDescriptionViewModel.textHostName.observe(viewLifecycleOwner){
-            binding.textViewHostName.text = it
-        }
-        eventDescriptionViewModel.textTime.observe(viewLifecycleOwner){
-            binding.textViewEventTime.text = it
-        }
-        eventDescriptionViewModel.textDate.observe(viewLifecycleOwner){
-            binding.textViewEventDate.text = it
-        }
-        eventDescriptionViewModel.textLocation.observe(viewLifecycleOwner){
-            binding.textViewEventLocation.text = it
-        }
-        eventDescriptionViewModel.textDescription.observe(viewLifecycleOwner){
-            binding.textViewEventDescription.text = it
-        }
 
         eventDescriptionViewModel.event.observe(viewLifecycleOwner) { event->
             eventText.text = event.name
             // Need to add Host to database and viewmodel and class
 //            hostText.text = event.host
+            timeText.text = event.time
             dateText.text = event.date
             locationText.text = event.location
             descriptionText.text = event.description
