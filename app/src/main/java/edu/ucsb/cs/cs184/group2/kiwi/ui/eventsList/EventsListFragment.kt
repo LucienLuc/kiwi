@@ -21,8 +21,7 @@ class EventsListFragment : Fragment() {
 
     private var _binding: FragmentEventsListBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -30,8 +29,7 @@ class EventsListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(EventsListViewModel::class.java)
+        val eventListViewModel = ViewModelProvider(this).get(EventsListViewModel::class.java)
 
         _binding = FragmentEventsListBinding.inflate(inflater, container, false)
 
@@ -39,10 +37,9 @@ class EventsListFragment : Fragment() {
 //        homeViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
 //        }
+
         val search: SearchView = binding.searchEditText
         // search.setOnQueryTextFocusChangeListener{performSearch()}
-
-
 
         val constraintLayout: ConstraintLayout = ConstraintLayout(requireContext())
 
