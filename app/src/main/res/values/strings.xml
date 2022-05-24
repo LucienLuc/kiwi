@@ -15,13 +15,17 @@
     <string name="description_location_text">Location: </string>
     <string name="description_time_text">Time: </string>
 
+<!--Events List-->
     <string name="title_events_list">View Events </string>
 
+<!--Event Creation-->
     <string name="event_creation_name">Name: </string>
     <string name="event_creation_datentime">Date and Time: </string>
     <string name="event_creation_location">Location: </string>
-
     <string name="event_creation_date">Date: </string>
     <string name="event_creation_time">Time: </string>
     <string name="event_creation_description">Description: </string>
+
+    <string name="event_creation_success">Successfully Created Event</string>
+    <string name="event_creation_fail">Please fill all required fields</string>
 </resources>
