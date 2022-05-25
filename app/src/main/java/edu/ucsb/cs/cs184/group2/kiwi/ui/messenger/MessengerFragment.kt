@@ -27,11 +27,6 @@ class MessengerFragment : Fragment() {
 
         _binding = FragmentMessengerBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        val textView: TextView = binding.textMessenger
-        messengerViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
         return root
     }
 
