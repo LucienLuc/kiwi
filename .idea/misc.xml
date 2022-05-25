@@ -3,16 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/khali/OneDrive/Desktop/Code/UCSB Code/kiwi/kiwi/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1" />
-        <entry key="..\:/Users/khali/OneDrive/Desktop/Code/UCSB Code/kiwi/kiwi/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
-        <entry key="..\:/Users/khali/OneDrive/Desktop/Code/UCSB Code/kiwi/kiwi/app/src/main/res/drawable/ic_messenger_black_24dp.xml" value="0.1" />
-        <entry key="..\:/Users/khali/OneDrive/Desktop/Code/UCSB Code/kiwi/kiwi/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1" />
-        <entry key="..\:/Users/khali/OneDrive/Desktop/Code/UCSB Code/kiwi/kiwi/app/src/main/res/layout/activity_main.xml" value="0.18568840579710144" />
-        <entry key="..\:/Users/khali/OneDrive/Desktop/Code/UCSB Code/kiwi/kiwi/app/src/main/res/layout/fragment_dashboard.xml" value="0.17831813576494426" />
-        <entry key="..\:/Users/khali/OneDrive/Desktop/Code/UCSB Code/kiwi/kiwi/app/src/main/res/layout/fragment_messenger.xml" value="0.18568840579710144" />
-        <entry key="..\:/Users/khali/OneDrive/Desktop/Code/UCSB Code/kiwi/kiwi/app/src/main/res/layout/fragment_notifications.xml" value="0.18568840579710144" />
-        <entry key="..\:/Users/khali/OneDrive/Desktop/Code/UCSB Code/kiwi/kiwi/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18802083333333333" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
+        <entry key="..\:/Users/khali/OneDrive/Desktop/Code/UCSB Code/CS184/kiwi/app/src/main/res/layout/fragment_dashboard.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/khali/OneDrive/Desktop/Code/UCSB Code/CS184/kiwi/app/src/main/res/layout/fragment_home.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/khali/OneDrive/Desktop/Code/UCSB Code/CS184/kiwi/app/src/main/res/layout/fragment_messenger.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/khali/OneDrive/Desktop/Code/UCSB Code/CS184/kiwi/app/src/main/res/layout/fragment_notifications.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/khali/OneDrive/Desktop/Code/UCSB Code/CS184/kiwi/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36102564102564105" />
       </map>
     </option>
   </component>

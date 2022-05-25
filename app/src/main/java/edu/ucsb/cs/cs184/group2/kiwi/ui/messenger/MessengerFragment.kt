@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentNotificationsBinding
+import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentMessengerBinding
 
 class MessengerFragment : Fragment() {
 
-    private var _binding: FragmentNotificationsBinding? = null
+    private var _binding: FragmentMessengerBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,10 +25,10 @@ class MessengerFragment : Fragment() {
         val messengerViewModel =
             ViewModelProvider(this).get(MessengerViewModel::class.java)
 
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        _binding = FragmentMessengerBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
+        val textView: TextView = binding.textMessenger
         messengerViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
