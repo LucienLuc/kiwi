@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".ui.eventDescription.EventDescriptionFragment">
+
+    <TextView
+        android:id="@+id/eventText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/signika"
+        android:paddingTop="5dp"
+        android:text="@string/description_event_title"
+        android:textColor="#3A3939"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewEventName" />
+
+    <TextView
+        android:id="@+id/hostText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/signika"
+        android:paddingTop="5dp"
+        android:text="@string/description_host_text"
+        android:textColor="#3A3939"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/eventText"
+        app:layout_constraintTop_toTopOf="@+id/textViewHostName" />
+
+    <TextView
+        android:id="@+id/dateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/signika"
+        android:paddingTop="5dp"
+        android:text="@string/description_date_text"
+        android:textColor="#3A3939"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/hostText"
+        app:layout_constraintTop_toTopOf="@+id/textViewEventDate" />
+
+    <TextView
+        android:id="@+id/descriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/signika"
+        android:paddingTop="5dp"
+        android:text="@string/description_description_text"
+        android:textColor="#3A3939"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/locationText"
+        app:layout_constraintTop_toTopOf="@+id/textViewEventDescription" />
+
+    <TextView
+        android:id="@+id/locationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/signika"
+        android:paddingTop="5dp"
+        android:text="@string/description_location_text"
+        android:textColor="#3A3939"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/timeText"
+        app:layout_constraintTop_toTopOf="@+id/textViewEventLocation" />
+
+    <TextView
+        android:id="@+id/textViewEventName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/signika"
+        android:paddingTop="5dp"
+        android:text="TextView"
+        android:textColor="#3A3939"
+        app:layout_constraintBottom_toTopOf="@+id/textViewHostName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/textViewHostName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/signika"
+        android:paddingTop="5dp"
+        android:text="TextView"
+        android:textColor="#3A3939"
+        app:layout_constraintBottom_toTopOf="@+id/textViewEventDate"
+        app:layout_constraintStart_toStartOf="@+id/textViewEventName"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEventName" />
+
+    <TextView
+        android:id="@+id/textViewEventDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/signika"
+        android:paddingTop="5dp"
+        android:text="TextView"
+        android:textColor="#3A3939"
+        app:layout_constraintBottom_toTopOf="@+id/textViewEventTime"
+        app:layout_constraintStart_toStartOf="@+id/textViewHostName"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHostName" />
+
+    <TextView
+        android:id="@+id/textViewEventLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/signika"
+        android:paddingTop="5dp"
+        android:text="TextView"
+        android:textColor="#3A3939"
+        app:layout_constraintBottom_toTopOf="@+id/textViewEventDescription"
+        app:layout_constraintStart_toStartOf="@+id/textViewEventTime"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEventTime" />
+
+    <TextView
+        android:id="@+id/textViewEventDescription"
+        android:layout_width="wrap_content"
+        android:maxWidth="200dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="false"
+        android:fontFamily="@font/signika"
+        android:paddingTop="5dp"
+        android:text="TextView"
+        android:textColor="#3A3939"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textViewEventLocation"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEventLocation" />
+
+    <TextView
+        android:id="@+id/timeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/signika"
+        android:paddingTop="5dp"
+        android:text="@string/description_time_text"
+        android:textColor="#3A3939"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/dateText"
+        app:layout_constraintTop_toTopOf="@+id/textViewEventTime" />
+
+    <TextView
+        android:id="@+id/textViewEventTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/signika"
+        android:paddingTop="5dp"
+        android:text="TextView"
+        android:textColor="#3A3939"
+        app:layout_constraintBottom_toTopOf="@+id/textViewEventLocation"
+        app:layout_constraintStart_toStartOf="@+id/textViewEventDate"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEventDate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

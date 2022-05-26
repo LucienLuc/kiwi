@@ -12,12 +12,30 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_events_list"
+        android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.eventsList.EventsListFragment"
+        android:label="@string/title_events_list"
+        tools:layout="@layout/fragment_events_list" >
+        <action
+            android:id="@+id/action_navigation_events_list_to_navigation_events_description"
+            app:destination="@id/navigation_event_description" />
+    </fragment>
 
     <fragment
+        android:id="@+id/navigation_event_description"
+        android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.eventDescription.EventDescriptionFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_event_description">
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.login.LoginFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+<<<<<<< HEAD
         android:id="@+id/navigation_notifications"
         android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
@@ -28,4 +46,10 @@
         android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.messenger.MessengerFragment"
         android:label="@string/title_messenger"
         tools:layout="@layout/fragment_notifications" />
+=======
+        android:id="@+id/navigation_event_creation"
+        android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.eventCreation.EventCreationFragment"
+        android:label="@string/title_event_creation"
+        tools:layout="@layout/fragment_event_creation" />
+>>>>>>> main
 </navigation>
