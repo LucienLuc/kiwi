@@ -19,10 +19,8 @@ class EventDescriptionFragment : Fragment() {
 
     private var _binding: FragmentEventDescriptionBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
-
     private val eventDescriptionViewModel: EventDescriptionViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -45,7 +43,7 @@ class EventDescriptionFragment : Fragment() {
 
         eventDescriptionViewModel.event.observe(viewLifecycleOwner) { event->
             eventText.text = event.name
-            // Need to add Host to database and viewmodel and class
+//            Need to add Host to database and viewmodel and class
 //            hostText.text = event.host
             timeText.text = event.time
             dateText.text = event.date

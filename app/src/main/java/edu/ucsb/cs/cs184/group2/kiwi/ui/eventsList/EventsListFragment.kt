@@ -3,9 +3,7 @@ package edu.ucsb.cs.cs184.group2.kiwi.ui.eventsList
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.SearchView
@@ -21,7 +19,8 @@ import edu.ucsb.cs.cs184.group2.kiwi.ui.common.Event
 import edu.ucsb.cs.cs184.group2.kiwi.ui.eventDescription.EventDescriptionViewModel
 import edu.ucsb.cs.cs184.group2.kiwi.views.EventsView
 
-class EventsListFragment : Fragment() {
+
+class EventsListFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private var _binding: FragmentEventsListBinding? = null
 
@@ -34,6 +33,21 @@ class EventsListFragment : Fragment() {
     private val eventsListViewModel: EventsListViewModel by activityViewModels()
     private val eventDescriptionViewModel: EventDescriptionViewModel by activityViewModels()
 
+    override fun onQueryTextSubmit(p0: String?): Boolean {
+        Log.i("Event List", "text submitted: $p0")
+        return true
+    }
+
+    override fun onQueryTextChange(p0: String?): Boolean {
+        Log.i("Event List", "text changed to: $p0")
+        return false
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        Log.i("Event List", "onCreateOptionsMenu")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,6 +58,7 @@ class EventsListFragment : Fragment() {
         val constraintLayout: ConstraintLayout = ConstraintLayout(requireContext())
         val constraintSet: ConstraintSet = ConstraintSet()
         val search: SearchView = binding.searchEditText
+
 
         eventsListViewModel.events.observe(viewLifecycleOwner) { it ->
             viewList.clear()
@@ -123,6 +138,11 @@ class EventsListFragment : Fragment() {
         val root: View = binding.root
         return root
     }
+
+    private fun performSearch(){
+
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
