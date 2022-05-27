@@ -12,7 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -31,6 +34,7 @@ import com.google.firebase.ktx.Firebase
 import edu.ucsb.cs.cs184.group2.kiwi.R
 import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentLoginBinding
 import edu.ucsb.cs.cs184.group2.kiwi.ui.AccountViewModel
+import edu.ucsb.cs.cs184.group2.kiwi.ui.eventsList.EventsListViewModel
 
 
 class LoginFragment : Fragment() {
@@ -40,14 +44,13 @@ class LoginFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private val accountViewModel: AccountViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val accountViewModel =
-            ViewModelProvider(this)[AccountViewModel::class.java]
         val loginViewModel =
             ViewModelProvider(this).get(LoginViewModel::class.java)
 
@@ -122,8 +125,6 @@ class LoginFragment : Fragment() {
         if (account != null) {
             val loginViewModel =
                 ViewModelProvider(this).get(LoginViewModel::class.java)
-            val accountViewModel =
-                ViewModelProvider(this)[AccountViewModel::class.java]
 
             // Update text on Login Page
             val text : String = "Welcome, " + account.displayName!! + "."
@@ -183,7 +184,11 @@ class LoginFragment : Fragment() {
 
             val keyedUserReference: DatabaseReference = usersRef.child(userId)
             val values: MutableMap<String, Any> = HashMap()
+            val created_events: MutableMap<String, Any> = HashMap()
+            val followed_events: MutableMap<String, Any> = HashMap()
             values["name"] = account.displayName!!
+            values["created_events"] = created_events
+            values["followed_events"] = followed_events
 
             keyedUserReference.setValue(values)
 
