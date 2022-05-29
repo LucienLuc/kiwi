@@ -123,12 +123,12 @@
     <TextView
         android:id="@+id/textViewEventDescription"
         android:layout_width="wrap_content"
-        android:maxWidth="200dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:singleLine="false"
         android:fontFamily="@font/signika"
+        android:maxWidth="200dp"
         android:paddingTop="5dp"
+        android:singleLine="false"
         android:text="TextView"
         android:textColor="#3A3939"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -158,5 +158,14 @@
         app:layout_constraintBottom_toTopOf="@+id/textViewEventLocation"
         app:layout_constraintStart_toStartOf="@+id/textViewEventDate"
         app:layout_constraintTop_toBottomOf="@+id/textViewEventDate" />
+
+    <Button
+        android:id="@+id/button_follow_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/description_follow_event_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

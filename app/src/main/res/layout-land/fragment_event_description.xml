@@ -160,4 +160,13 @@
         app:layout_constraintStart_toStartOf="@+id/textViewEventDate"
         app:layout_constraintTop_toBottomOf="@+id/textViewEventDate" />
 
+    <Button
+        android:id="@+id/button_follow_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/description_follow_event_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

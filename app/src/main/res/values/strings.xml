@@ -13,6 +13,8 @@
     <string name="description_description_text">Description: </string>
     <string name="description_location_text">Location: </string>
     <string name="description_time_text">Time: </string>
+    <string name="description_follow_event_button">Follow</string>
+    <string name="description_unfollow_event_button">Unfollow</string>
 
 <!--Events List-->
     <string name="title_events_list">View Events </string>

@@ -54,11 +54,11 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        startFirebaseListener()
+        startFirebaseListenerOnAllEvents()
 
     }
 
-    private fun startFirebaseListener() {
+    private fun startFirebaseListenerOnAllEvents() {
         val database = Firebase.database
         val eventsRef: DatabaseReference = database.getReference("events")
 
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                         val location = snap.child("location").value as String
                         val description = snap.child("description").value as String
 
-                        val event = Event(name, date, time, location, description)
+                        val event = Event(nodId!!, name, date, time, location, description)
                         eventsList.add(event)
 
                         //received results

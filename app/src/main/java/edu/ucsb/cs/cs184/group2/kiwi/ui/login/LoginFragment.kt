@@ -5,7 +5,6 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.renderscript.Sampler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -41,13 +41,13 @@ class LoginFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private val accountViewModel: AccountViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val accountViewModel =
-            ViewModelProvider(this)[AccountViewModel::class.java]
         val loginViewModel =
             ViewModelProvider(this).get(LoginViewModel::class.java)
 
@@ -122,8 +122,6 @@ class LoginFragment : Fragment() {
         if (account != null) {
             val loginViewModel =
                 ViewModelProvider(this).get(LoginViewModel::class.java)
-            val accountViewModel =
-                ViewModelProvider(this)[AccountViewModel::class.java]
 
             // Update text on Login Page
             val text : String = "Welcome, " + account.displayName!! + "."
@@ -138,8 +136,6 @@ class LoginFragment : Fragment() {
         } else {
             val loginViewModel =
                 ViewModelProvider(this).get(LoginViewModel::class.java)
-            val accountViewModel =
-                ViewModelProvider(this)[AccountViewModel::class.java]
 
             // Update text on Login Page
             val text : String = "This is the login page."
@@ -177,15 +173,11 @@ class LoginFragment : Fragment() {
                 }
             })
 
-            /*
-            This may overwrite existing data, not sure. If so, use check in code above.
-             */
-
             val keyedUserReference: DatabaseReference = usersRef.child(userId)
             val values: MutableMap<String, Any> = HashMap()
             values["name"] = account.displayName!!
 
-            keyedUserReference.setValue(values)
+            keyedUserReference.updateChildren(values)
 
         }
     }
