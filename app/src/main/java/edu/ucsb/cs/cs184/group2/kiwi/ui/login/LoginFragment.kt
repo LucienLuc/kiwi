@@ -5,17 +5,14 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.renderscript.Sampler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -34,7 +31,6 @@ import com.google.firebase.ktx.Firebase
 import edu.ucsb.cs.cs184.group2.kiwi.R
 import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentLoginBinding
 import edu.ucsb.cs.cs184.group2.kiwi.ui.AccountViewModel
-import edu.ucsb.cs.cs184.group2.kiwi.ui.eventsList.EventsListViewModel
 
 
 class LoginFragment : Fragment() {
@@ -139,8 +135,6 @@ class LoginFragment : Fragment() {
         } else {
             val loginViewModel =
                 ViewModelProvider(this).get(LoginViewModel::class.java)
-            val accountViewModel =
-                ViewModelProvider(this)[AccountViewModel::class.java]
 
             // Update text on Login Page
             val text : String = "This is the login page."
@@ -178,19 +172,11 @@ class LoginFragment : Fragment() {
                 }
             })
 
-            /*
-            This may overwrite existing data, not sure. If so, use check in code above.
-             */
-
             val keyedUserReference: DatabaseReference = usersRef.child(userId)
             val values: MutableMap<String, Any> = HashMap()
-            val created_events: MutableMap<String, Any> = HashMap()
-            val followed_events: MutableMap<String, Any> = HashMap()
             values["name"] = account.displayName!!
-            values["created_events"] = created_events
-            values["followed_events"] = followed_events
 
-            keyedUserReference.setValue(values)
+            keyedUserReference.updateChildren(values)
 
         }
     }
