@@ -28,7 +28,7 @@ class EventCreationFragment : Fragment() {
 
     private var _binding: FragmentEventCreationBinding? = null
 
-    // This property is only valid between onCreateView and onDestroyView.
+    //  This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
     private val accountViewModel: AccountViewModel by activityViewModels()
     private var account : GoogleSignInAccount? = null
@@ -38,7 +38,7 @@ class EventCreationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val eventCreationViewModel = ViewModelProvider(this).get(EventCreationViewModel::class.java)
+        val eventCreationViewModel = ViewModelProvider(this)[EventCreationViewModel::class.java]
         _binding = FragmentEventCreationBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val submitButton: Button = binding.buttonSubmit
@@ -96,25 +96,25 @@ class EventCreationFragment : Fragment() {
             val eventsRef: DatabaseReference = database.getReference("events")
             val keyedEventsReference: DatabaseReference = eventsRef.push()
 
-            // Update events
-            val eventValues: MutableMap<String, Any> = HashMap()
-            eventValues["name"] = nameTextView.text.toString()
-            eventValues["time"] = timeTextView.text.toString()
-            eventValues["date"] = dateTextView.text.toString()
-            eventValues["location"] = locationTextView.text.toString()
-            eventValues["description"] = descriptionTextView.text.toString()
-            keyedEventsReference.setValue(eventValues)
+        // Update events
+        val values: MutableMap<String, Any> = HashMap()
+        val name = nameTextView.text.toString().replaceFirstChar { it.uppercase() }
+        values["name"] = name
+        values["time"] = timeTextView.text.toString()
+        values["date"] = dateTextView.text.toString()
+        values["location"] = locationTextView.text.toString()
+        values["description"] = descriptionTextView.text.toString()
 
-            // Update user
-            accountViewModel.account.observe(viewLifecycleOwner) {
-                account = it
-            }
-            if (account == null) {
-                Snackbar.make(requireView(), R.string.login_error, Snackbar.LENGTH_SHORT).show()
-            } else {
-                Log.i("EventCreationFragment", account!!.id.toString())
-                val usersRef: DatabaseReference = database.getReference("users/" + account!!.id + "/created_events")
-                val keyedUserReference: DatabaseReference = usersRef.push()
+        // Update user
+        accountViewModel.account.observe(viewLifecycleOwner) {
+            account = it
+        }
+        if (account == null) {
+            Snackbar.make(requireView(), R.string.login_error, Snackbar.LENGTH_SHORT).show()
+        } else {
+            Log.i("EventCreationFragment", account!!.id.toString())
+            val usersRef: DatabaseReference = database.getReference("users/" + account!!.id + "/created_events")
+            val keyedUserReference: DatabaseReference = usersRef.push()
 
                 val userValues: MutableMap<String, Any> = HashMap()
                 userValues["id"] = keyedEventsReference.key.toString()
