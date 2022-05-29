@@ -9,6 +9,7 @@ import android.widget.*
 import android.widget.TextView.OnEditorActionListener
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.constraintlayout.widget.VirtualLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -45,23 +46,24 @@ class EventsListFragment : Fragment(){
         _binding = FragmentEventsListBinding.inflate(inflater, container, false)
         val constraintLayout: ConstraintLayout = ConstraintLayout(requireContext())
         val constraintSet: ConstraintSet = ConstraintSet()
-
         val searchButton: ImageButton = binding.imageButton
         val searchText:EditText = binding.editTextTextPersonName
+        dr = FirebaseDatabase.getInstance().getReference("events")
+
+
         searchButton.setOnClickListener{
-            val query = searchText.text.toString().lowercase()
-            dr.addValueEventListener(object:ValueEventListener{
+            val q = searchText.text.toString()
+            val query = q.replaceFirstChar { it.uppercase() }
+            val set = dr.orderByChild("name").startAt(query).endAt(query+"\uf8ff")
+            set.addValueEventListener(object: ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    // Checking if the value exists
-                    if (snapshot.exists()){
+                    if(snapshot.exists()){
                         viewList.clear()
                         viewListIds.clear()
-                        // looping through the values
-                        for (i in snapshot.children){
+                        for(i in snapshot.children){
+                            Log.i("Event List", "i.key: ${i.key} i.value: ${i.getValue(Event::class.java)!!.name}")
                             val e = i.getValue(Event::class.java)
-                            Log.i("Event List", "event name: ${e!!.name}")
-                            // checking if the name searched is available and adding it to the array list
-                            if (e!!.name.lowercase() == query){
+                            if(e != null){
                                 val eventView: EventsView = EventsView(requireContext())
                                 eventView.id = View.generateViewId()
                                 eventView.setName(e.name)
@@ -100,7 +102,7 @@ class EventsListFragment : Fragment(){
                                 constraintSet.connect(
                                     view.id,
                                     ConstraintSet.BOTTOM,
-                                    previousItem.getId(),
+                                    previousItem!!.getId(),
                                     ConstraintSet.TOP
                                 )
                                 if (lastItem) {
@@ -127,27 +129,28 @@ class EventsListFragment : Fragment(){
                             )
                         }
                         constraintSet.applyTo(constraintLayout)
-                    } else{
-                        Toast.makeText(context, "Data does not exist", Toast.LENGTH_SHORT).show()
+                    }
+                    else {
+                        Toast.makeText(context, "No events found that match this query", Toast.LENGTH_SHORT).show()
+                        viewList.clear()
+                        viewListIds.clear()
+                        constraintLayout.removeAllViews()
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
+
                 }
             })
         }
 
         viewList.clear()
         viewListIds.clear()
-
         dr = FirebaseDatabase.getInstance().getReference("events")
         dr.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
-                    var number = 0
                     for(i in snapshot.children){
-                        Log.i("Event List", "$number exist")
-                        number++
                         val e = i.getValue(Event::class.java)
                         if(e != null){
                             val eventView: EventsView = EventsView(requireContext())
@@ -304,14 +307,6 @@ class EventsListFragment : Fragment(){
 
         val root: View = binding.root
         return root
-    }
-
-    private fun performSearch(){
-
-    }
-
-    private fun getEvents(){
-
     }
 
 

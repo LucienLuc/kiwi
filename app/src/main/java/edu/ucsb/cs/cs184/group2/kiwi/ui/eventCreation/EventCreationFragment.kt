@@ -65,7 +65,8 @@ class EventCreationFragment : Fragment() {
         val keyedEventsReference: DatabaseReference = eventsRef.push()
 
         val values: MutableMap<String, Any> = HashMap()
-        values["name"] = nameTextView.text.toString()
+        val name = nameTextView.text.toString().replaceFirstChar { it.uppercase() }
+        values["name"] = name
         values["time"] = timeTextView.text.toString()
         values["date"] = dateTextView.text.toString()
         values["location"] = locationTextView.text.toString()
