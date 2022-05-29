@@ -29,4 +29,5 @@
 
     <string name="event_creation_success">Successfully Created Event</string>
     <string name="event_creation_fail">Please fill all required fields</string>
+    <string name="login_error">The app does not detect you are logged in. Please try again.</string>
 </resources>

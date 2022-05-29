@@ -32,8 +32,6 @@ class EventDescriptionFragment : Fragment() {
     private var account: GoogleSignInAccount? = null
     private var event_id: String? = null
 
-    private var viewStub: ViewStub? = null
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -77,10 +75,7 @@ class EventDescriptionFragment : Fragment() {
             handleFollowEvent()
         }
 
-//        viewStub = ViewStub(requireContext())
-        viewStub.setLayoutResource(R.layout.fragment_event_description);
-        return viewStub
-//        return root
+        return root
     }
 
     private fun handleFollowEvent() {
@@ -102,6 +97,7 @@ class EventDescriptionFragment : Fragment() {
                         for (id in event.children) {
                             if(id.value.toString() == event_id!!) {
                                 keyedUserFollowedEventsReference.child(event.key!!).removeValue()
+                                eventDescriptionViewModel.setFollowButtonText(requireContext().getString(R.string.description_follow_event_button))
                                 return
                             }
                         }
@@ -110,6 +106,7 @@ class EventDescriptionFragment : Fragment() {
                     val keyedEventsReference: DatabaseReference = keyedUserFollowedEventsReference.push()
                     val values: MutableMap<String, Any> = HashMap()
                     values["id"] = event_id!!
+                    eventDescriptionViewModel.setFollowButtonText(requireContext().getString(R.string.description_unfollow_event_button))
 
                     keyedEventsReference.setValue(values)
                 }
@@ -142,7 +139,6 @@ class EventDescriptionFragment : Fragment() {
                             if( id.value.toString() == event_id!!) {
                                 Log.d("EventDescription", "Already followed")
                                 eventDescriptionViewModel.setFollowButtonText(requireContext().getString(R.string.description_unfollow_event_button))
-                                viewStub.inflate()
                                 return
                             }
                         }
@@ -150,7 +146,6 @@ class EventDescriptionFragment : Fragment() {
                     // Event not followed
                     Log.d("EventDescription", "Not followed")
                     eventDescriptionViewModel.setFollowButtonText(requireContext().getString(R.string.description_follow_event_button))
-                    viewStub.inflate()
                 }
                 override fun onCancelled(error: DatabaseError) {
                     // Failed to read value
