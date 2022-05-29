@@ -17,7 +17,7 @@ class EventCreationFragment : Fragment() {
 
     private var _binding: FragmentEventCreationBinding? = null
 
-    // This property is only valid between onCreateView and onDestroyView.
+    //  This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -25,7 +25,7 @@ class EventCreationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val eventCreationViewModel = ViewModelProvider(this).get(EventCreationViewModel::class.java)
+        val eventCreationViewModel = ViewModelProvider(this)[EventCreationViewModel::class.java]
         _binding = FragmentEventCreationBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -77,12 +77,12 @@ class EventCreationFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        val eventCreationViewModel = ViewModelProvider(this).get(EventCreationViewModel::class.java)
+        val eventCreationViewModel = ViewModelProvider(this)[EventCreationViewModel::class.java]
         eventCreationViewModel.updateName(binding.editTextName.text)
-        eventCreationViewModel.updateTime(binding.editTextName.text)
-        eventCreationViewModel.updateDate(binding.editTextName.text)
-        eventCreationViewModel.updateLocation(binding.editTextName.text)
-        eventCreationViewModel.updateDescription(binding.editTextName.text)
+        eventCreationViewModel.updateTime(binding.editTextTime.text)
+        eventCreationViewModel.updateDate(binding.editTextDate.text)
+        eventCreationViewModel.updateLocation(binding.editTextLocation.text)
+        eventCreationViewModel.updateDescription(binding.editTextDescription.text)
 
         _binding = null
     }
