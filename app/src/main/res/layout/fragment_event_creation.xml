@@ -67,6 +67,7 @@
         android:ems="10"
         android:hint="MM/DD/YY"
         android:inputType="date"
+        android:focusable="false"
         app:layout_constraintEnd_toEndOf="@+id/textViewDate"
         app:layout_constraintStart_toStartOf="@+id/textViewDate"
         app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
@@ -77,9 +78,10 @@
         android:layout_height="@dimen/event_creation_small_editText_height"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
-        android:hint="eg 14:30"
+        android:hint="eg 12:30"
         android:inputType="time"
         android:textSize="20sp"
+        android:focusable="false"
         app:layout_constraintStart_toStartOf="@+id/textViewTime"
         app:layout_constraintTop_toBottomOf="@+id/textViewTime" />
 

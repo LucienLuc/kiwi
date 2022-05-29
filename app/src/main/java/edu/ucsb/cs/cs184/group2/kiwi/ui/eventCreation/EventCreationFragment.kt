@@ -1,6 +1,9 @@
 package edu.ucsb.cs.cs184.group2.kiwi.ui.eventCreation
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,9 +22,8 @@ import edu.ucsb.cs.cs184.group2.kiwi.R
 import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentEventCreationBinding
 import edu.ucsb.cs.cs184.group2.kiwi.ui.AccountViewModel
 import edu.ucsb.cs.cs184.group2.kiwi.ui.common.hideKeyboard
-
-
-
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class EventCreationFragment : Fragment() {
@@ -32,6 +34,9 @@ class EventCreationFragment : Fragment() {
     private val binding get() = _binding!!
     private val accountViewModel: AccountViewModel by activityViewModels()
     private var account : GoogleSignInAccount? = null
+
+    // For Time Text View
+    private val cal: Calendar = Calendar.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,7 +69,56 @@ class EventCreationFragment : Fragment() {
             binding.editTextDescription.text = it
         }
 
+        val timeTextView: TextView = binding.editTextTime
+        timeTextView.inputType = InputType.TYPE_NULL
+
+        timeTextView.setOnClickListener(View.OnClickListener {
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+                cal.set(Calendar.HOUR_OF_DAY, hour)
+                cal.set(Calendar.MINUTE, minute)
+                timeTextView.text = convertTime(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE))
+            }
+            TimePickerDialog(requireContext(), timeSetListener, cal
+                .get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), false).show()
+        })
+
+        val dateTextView: TextView = binding.editTextDate
+        dateTextView.inputType = InputType.TYPE_NULL
+        dateTextView.setOnClickListener(View.OnClickListener {
+            val dateSetListener = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, month)
+                cal.set(Calendar.DAY_OF_MONTH, day)
+                val dateText: String = (month+1).toString() + "/" + day.toString() + "/" + year.toString()
+                dateTextView.text = dateText
+            }
+            DatePickerDialog(requireContext(), dateSetListener, cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)).show()
+        })
+
         return root
+    }
+    //Converts from 24 hour time to 12 hour time
+    private fun convertTime(hours: Int, minutes: Int ) :String {
+
+        var res: String = ""
+        var isPm: Boolean = false
+        if (hours > 12) {
+            res += (hours-12).toString() + ":"
+            isPm = true
+        }
+
+        res += minutes
+
+        if (isPm) {
+            res += " PM"
+        }
+        else {
+            res += " AM"
+        }
+
+        return res
     }
 
     private fun validateFields(): Boolean {
