@@ -61,26 +61,7 @@ class EventsListFragment : Fragment() {
                         viewList.clear()
                         viewListIds.clear()
                         for(i in snapshot.children){
-                            Log.i("Event List", "i.key: ${i.key} i.value: ${i.getValue(Event::class.java)!!.name}")
-                            val e = i.getValue(Event::class.java)
-                            if(e != null){
-                                val eventView: EventsView = EventsView(requireContext())
-                                eventView.id = View.generateViewId()
-                                eventView.setName(e.name)
-                                eventView.setTime(e.time)
-                                eventView.setDate(e.date)
-                                eventView.setLocation(e.location)
-
-                                eventView.setOnClickListener{ view ->
-                                    val event: Event = Event(e.name, e.date, e.time, e.location, e.description)
-                                    eventDescriptionViewModel.setEvent(event)
-
-                                    view.findNavController().navigate(R.id.action_navigation_events_list_to_navigation_events_description)
-                                }
-
-                                viewList.add(eventView)
-                                viewListIds.add(eventView.id)
-                            }
+                            addToViewList(i)
                         }
                         constraintLayout.removeAllViews()
                         for (event in viewList) {
@@ -151,25 +132,7 @@ class EventsListFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     for(i in snapshot.children){
-                        val e = i.getValue(Event::class.java)
-                        if(e != null){
-                            val eventView: EventsView = EventsView(requireContext())
-                            eventView.id = View.generateViewId()
-                            eventView.setName(e.name)
-                            eventView.setTime(e.time)
-                            eventView.setDate(e.date)
-                            eventView.setLocation(e.location)
-
-                            eventView.setOnClickListener{ view ->
-                                val event: Event = Event(e.name, e.date, e.time, e.location, e.description)
-                                eventDescriptionViewModel.setEvent(event)
-
-                                view.findNavController().navigate(R.id.action_navigation_events_list_to_navigation_events_description)
-                            }
-
-                            viewList.add(eventView)
-                            viewListIds.add(eventView.id)
-                        }
+                        addToViewList(i)
                     }
                     constraintLayout.removeAllViews()
                     for (event in viewList) {
@@ -307,6 +270,28 @@ class EventsListFragment : Fragment() {
 
         val root: View = binding.root
         return root
+    }
+
+    fun addToViewList(s:DataSnapshot){
+        val e = s.getValue(Event::class.java)
+        if(e != null){
+            val eventView: EventsView = EventsView(requireContext())
+            eventView.id = View.generateViewId()
+            eventView.setName(e.name)
+            eventView.setTime(e.time)
+            eventView.setDate(e.date)
+            eventView.setLocation(e.location)
+
+            eventView.setOnClickListener{ view ->
+                val event: Event = Event(e.name, e.date, e.time, e.location, e.description)
+                eventDescriptionViewModel.setEvent(event)
+
+                view.findNavController().navigate(R.id.action_navigation_events_list_to_navigation_events_description)
+            }
+
+            viewList.add(eventView)
+            viewListIds.add(eventView.id)
+        }
     }
 
 
