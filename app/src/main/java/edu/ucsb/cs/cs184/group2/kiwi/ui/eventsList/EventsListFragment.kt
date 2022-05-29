@@ -22,7 +22,7 @@ import edu.ucsb.cs.cs184.group2.kiwi.views.EventsView
 import java.lang.ref.PhantomReference
 
 
-class EventsListFragment : Fragment(){
+class EventsListFragment : Fragment() {
 
     private var _binding: FragmentEventsListBinding? = null
 
