@@ -3,7 +3,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-<<<<<<< HEAD
     <string name="title_messenger">Messenger</string>
 =======
     <string name="title_login">Login</string>
@@ -31,5 +30,8 @@
 
     <string name="event_creation_success">Successfully Created Event</string>
     <string name="event_creation_fail">Please fill all required fields</string>
->>>>>>> main
+
+    <string name="action_cricket">Cricket</string>
+    <string name="action_football">Football</string>
+    <string name="action_hockey">Hockey</string>
 </resources>

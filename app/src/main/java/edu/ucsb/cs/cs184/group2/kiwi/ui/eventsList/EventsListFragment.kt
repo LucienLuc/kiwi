@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.PopupMenu
 import android.widget.SearchView
 import android.widget.TextView.OnEditorActionListener
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +21,8 @@ import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentEventsListBinding
 import edu.ucsb.cs.cs184.group2.kiwi.ui.common.Event
 import edu.ucsb.cs.cs184.group2.kiwi.ui.eventDescription.EventDescriptionViewModel
 import edu.ucsb.cs.cs184.group2.kiwi.views.EventsView
+import android.widget.Button
+import android.widget.Toast
 
 class EventsListFragment : Fragment() {
 
@@ -33,6 +36,7 @@ class EventsListFragment : Fragment() {
 
     private val eventsListViewModel: EventsListViewModel by activityViewModels()
     private val eventDescriptionViewModel: EventDescriptionViewModel by activityViewModels()
+    private val popButton: Button? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -117,6 +121,23 @@ class EventsListFragment : Fragment() {
             constraintSet.applyTo(constraintLayout)
 
         }
+
+//        val button = binding.button2
+//        button.setOnClickListener {
+//            val popupMenu: PopupMenu = PopupMenu(this, button)
+//            popupMenu.menuInflater.inflate(R.menu.popup_menu,popupMenu.menu)
+//            popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+//                when(item.itemId) {
+//                    R.id.action_crick ->
+//                        Toast.makeText(this@MainActivity, "You Clicked : " + item.title, Toast.LENGTH_SHORT).show()
+//                    R.id.action_ftbal ->
+//                        Toast.makeText(this@MainActivity, "You Clicked : " + item.title, Toast.LENGTH_SHORT).show()
+//                    R.id.action_hockey ->
+//                        Toast.makeText(this@MainActivity, "You Clicked : " + item.title, Toast.LENGTH_SHORT).show()
+//                }
+//                true
+//            })
+//        }
 
         binding.scrollView.addView(constraintLayout)
 

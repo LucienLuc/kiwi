@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.home.HomeFragment"
+        android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.eventUpdates.eventUpdatesFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
@@ -35,21 +35,8 @@
         tools:layout="@layout/fragment_login" />
 
     <fragment
-<<<<<<< HEAD
-        android:id="@+id/navigation_notifications"
-        android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
-
-    <fragment
-        android:id="@+id/navigation_messenger"
-        android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.messenger.MessengerFragment"
-        android:label="@string/title_messenger"
-        tools:layout="@layout/fragment_notifications" />
-=======
         android:id="@+id/navigation_event_creation"
         android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.eventCreation.EventCreationFragment"
         android:label="@string/title_event_creation"
         tools:layout="@layout/fragment_event_creation" />
->>>>>>> main
 </navigation>
