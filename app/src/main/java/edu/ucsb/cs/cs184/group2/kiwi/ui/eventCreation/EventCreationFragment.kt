@@ -107,6 +107,8 @@ class EventCreationFragment : Fragment() {
         if (hours > 12) {
             res += (hours-12).toString() + ":"
             isPm = true
+        } else {
+            res += hours.toString() + ":"
         }
 
         if (minutes < 10) {
