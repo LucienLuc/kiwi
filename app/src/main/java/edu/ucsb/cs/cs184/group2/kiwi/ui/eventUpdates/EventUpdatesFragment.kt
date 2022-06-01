@@ -1,6 +1,8 @@
 package edu.ucsb.cs.cs184.group2.kiwi.ui.eventUpdates
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +21,10 @@ class eventUpdatesFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private var notification = arrayOf<String>()
+    private var viewList: ArrayList<Editable>? = ArrayList()
+
+    // On pulling up profile, I want to have a
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,10 +49,24 @@ class eventUpdatesFragment : Fragment() {
         return root
     }
 
+    private fun update(viewList: ArrayList<Editable>?){
+        val notification: TextView = binding.notifications
+
+        viewList?.let{
+            notification.text = ""
+            var list: String = ""
+            for (value in viewList!!){
+                list = list+value+"\n"
+            }
+            notification.text = list
+        }
+        notification.movementMethod = ScrollingMovementMethod()
+    }
+
     private fun handleSend(editText: EditText) {
         val text = editText.text
-        val name: TextView = binding.username
-        name.text = text
+        viewList?.add(text)
+        update(viewList)
     }
 
     override fun onDestroyView() {
