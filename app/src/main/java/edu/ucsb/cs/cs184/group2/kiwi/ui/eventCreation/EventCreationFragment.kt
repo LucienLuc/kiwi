@@ -109,6 +109,10 @@ class EventCreationFragment : Fragment() {
             isPm = true
         }
 
+        if (minutes < 10) {
+            res += "0"
+        }
+
         res += minutes
 
         if (isPm) {
