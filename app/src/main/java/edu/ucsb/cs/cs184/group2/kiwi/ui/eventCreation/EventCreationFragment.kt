@@ -156,25 +156,27 @@ class EventCreationFragment : Fragment() {
             val eventsRef: DatabaseReference = database.getReference("events")
             val keyedEventsReference: DatabaseReference = eventsRef.push()
 
-        // Update events
-        val values: MutableMap<String, Any> = HashMap()
-        val name = nameTextView.text.toString().replaceFirstChar { it.uppercase() }
-        values["name"] = name
-        values["time"] = timeTextView.text.toString()
-        values["date"] = dateTextView.text.toString()
-        values["location"] = locationTextView.text.toString()
-        values["description"] = descriptionTextView.text.toString()
+            // Update events
+            val values: MutableMap<String, Any> = HashMap()
+            val name = nameTextView.text.toString().replaceFirstChar { it.uppercase() }
+            values["name"] = name
+            values["datetime"] = cal.timeInMillis
+            values["location"] = locationTextView.text.toString()
+            values["description"] = descriptionTextView.text.toString()
 
-        // Update user
-        accountViewModel.account.observe(viewLifecycleOwner) {
-            account = it
-        }
-        if (account == null) {
-            Snackbar.make(requireView(), R.string.login_error, Snackbar.LENGTH_SHORT).show()
-        } else {
-            Log.i("EventCreationFragment", account!!.id.toString())
-            val usersRef: DatabaseReference = database.getReference("users/" + account!!.id + "/created_events")
-            val keyedUserReference: DatabaseReference = usersRef.push()
+            keyedEventsReference.updateChildren(values)
+
+            // Update user
+            accountViewModel.account.observe(viewLifecycleOwner) {
+                account = it
+            }
+            if (account == null) {
+                Snackbar.make(requireView(), R.string.login_error, Snackbar.LENGTH_SHORT).show()
+            }
+            else {
+                Log.i("EventCreationFragment", account!!.id.toString())
+                val usersRef: DatabaseReference = database.getReference("users/" + account!!.id + "/created_events")
+                val keyedUserReference: DatabaseReference = usersRef.push()
 
                 val userValues: MutableMap<String, Any> = HashMap()
                 userValues["id"] = keyedEventsReference.key.toString()

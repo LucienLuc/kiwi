@@ -88,12 +88,11 @@ class MainActivity : AppCompatActivity() {
                         val nodId = snap.key
 
                         val name = snap.child("name").value as String
-                        val date = snap.child("date").value as String
-                        val time = snap.child("time").value as String
+                        val datetime = snap.child("datetime").value as Long
                         val location = snap.child("location").value as String
                         val description = snap.child("description").value as String
 
-                        val event = Event(nodId!!, name, date, time, location, description)
+                        val event = Event(nodId!!, name, datetime, location, description)
                         eventsList.add(event)
 
                         //received results
@@ -138,12 +137,11 @@ class MainActivity : AppCompatActivity() {
                                         val nodId = snap.key
 
                                         val name = snap.child("name").value as String
-                                        val date = snap.child("date").value as String
-                                        val time = snap.child("time").value as String
+                                        val datetime = snap.child("datetime").value as Long
                                         val location = snap.child("location").value as String
                                         val description = snap.child("description").value as String
 
-                                        val e = Event(nodId!!, name, date, time, location, description)
+                                        val e = Event(nodId!!, name, datetime, location, description)
                                         followedEventsList.add(e)
 
                                         //received results
@@ -195,12 +193,11 @@ class MainActivity : AppCompatActivity() {
                                         val nodId = snap.key
 
                                         val name = snap.child("name").value as String
-                                        val date = snap.child("date").value as String
-                                        val time = snap.child("time").value as String
+                                        val datetime = snap.child("datetime").value as Long
                                         val location = snap.child("location").value as String
                                         val description = snap.child("description").value as String
 
-                                        val e = Event(nodId!!, name, date, time, location, description)
+                                        val e = Event(nodId!!, name, datetime, location, description)
                                         createdEventsList.add(e)
 
                                         //received results
