@@ -17,9 +17,12 @@ import com.google.firebase.database.*
 import edu.ucsb.cs.cs184.group2.kiwi.R
 import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentEventsListBinding
 import edu.ucsb.cs.cs184.group2.kiwi.ui.common.Event
+import edu.ucsb.cs.cs184.group2.kiwi.ui.common.convertTime
 import edu.ucsb.cs.cs184.group2.kiwi.ui.eventDescription.EventDescriptionViewModel
 import edu.ucsb.cs.cs184.group2.kiwi.views.EventsView
 import java.lang.ref.PhantomReference
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class EventsListFragment : Fragment() {
@@ -55,7 +58,7 @@ class EventsListFragment : Fragment() {
             val q = searchText.text.toString()
             val query = q.replaceFirstChar { it.uppercase() }
             val set = dr.orderByChild("name").startAt(query).endAt(query+"\uf8ff")
-            set.addValueEventListener(object: ValueEventListener{
+            set.addListenerForSingleValueEvent(object: ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if(snapshot.exists()){
                         viewList.clear()
@@ -128,7 +131,7 @@ class EventsListFragment : Fragment() {
         viewList.clear()
         viewListIds.clear()
         dr = FirebaseDatabase.getInstance().getReference("events")
-        dr.addValueEventListener(object: ValueEventListener{
+        dr.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     for(i in snapshot.children){
@@ -183,7 +186,7 @@ class EventsListFragment : Fragment() {
                     constraintSet.applyTo(constraintLayout)
                 }
                 else {
-                    Toast.makeText(context, "Data does not exits", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Data does not exist", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -278,12 +281,19 @@ class EventsListFragment : Fragment() {
             val eventView: EventsView = EventsView(requireContext())
             eventView.id = View.generateViewId()
             eventView.setName(e.name)
-            eventView.setTime(e.time)
-            eventView.setDate(e.date)
+
             eventView.setLocation(e.location)
+            val c: Calendar = Calendar.getInstance()
+            c.timeInMillis = e.datetime
+
+            val time: String = convertTime(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE))
+            val date: String = (c.get(Calendar.MONTH)+1).toString() + "/" + c.get(Calendar.DAY_OF_MONTH).toString() + "/" + c.get(Calendar.YEAR).toString()
+
+            eventView.setDate(date)
+            eventView.setTime(time)
 
             eventView.setOnClickListener{ view ->
-                val event: Event = Event(e.name, e.date, e.time, e.location, e.description)
+                val event: Event = Event(e.firebase_id, e.name, e.datetime, e.location, e.description)
                 eventDescriptionViewModel.setEvent(event)
 
                 view.findNavController().navigate(R.id.action_navigation_events_list_to_navigation_events_description)
