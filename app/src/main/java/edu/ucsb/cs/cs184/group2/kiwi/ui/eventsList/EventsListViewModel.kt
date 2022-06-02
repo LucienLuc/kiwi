@@ -13,6 +13,8 @@ class EventsListViewModel : ViewModel() {
         _events.value = eventsList
     }
 
+
+
     val events: LiveData<ArrayList<Event>> = _events
 
 }
