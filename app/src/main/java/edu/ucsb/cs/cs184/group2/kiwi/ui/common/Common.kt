@@ -23,3 +23,31 @@ import androidx.fragment.app.Fragment
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
+
+//Converts from 24 hour time to 12 hour time
+fun convertTime(hours: Int, minutes: Int ) :String {
+
+    var res: String = ""
+    var isPm: Boolean = false
+    if (hours > 12) {
+        res += (hours-12).toString() + ":"
+        isPm = true
+    } else {
+        res += hours.toString() + ":"
+    }
+
+    if (minutes < 10) {
+        res += "0"
+    }
+
+    res += minutes
+
+    if (isPm) {
+        res += " PM"
+    }
+    else {
+        res += " AM"
+    }
+
+    return res
+}
