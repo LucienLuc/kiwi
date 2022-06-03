@@ -159,18 +159,18 @@ class LoginFragment : Fragment() {
             /*
             This is to check if the user already exists but we might not need this later.
              */
-            val userExistsQuery = usersRef.orderByKey().startAt(userId)
-            userExistsQuery.addListenerForSingleValueEvent(object: ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for (user in snapshot.children) {
-                        Log.d("FirebaseLog", user.key + " -> " + user.value)
-                    }
-                }
-                override fun onCancelled(error: DatabaseError) {
-                    // Failed to read value
-                    Log.w("FirebaseLog", "Failed to read value.", error.toException())
-                }
-            })
+//            val userExistsQuery = usersRef.orderByKey().startAt(userId)
+//            userExistsQuery.addListenerForSingleValueEvent(object: ValueEventListener {
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    for (user in snapshot.children) {
+//                        Log.d("FirebaseLog", user.key + " -> " + user.value)
+//                    }
+//                }
+//                override fun onCancelled(error: DatabaseError) {
+//                    // Failed to read value
+//                    Log.w("FirebaseLog", "Failed to read value.", error.toException())
+//                }
+//            })
 
             val keyedUserReference: DatabaseReference = usersRef.child(userId)
             val values: MutableMap<String, Any> = HashMap()
@@ -185,4 +185,5 @@ class LoginFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+>>>>>>> d603ad982c25b8c256f9591042975e743569478b
 }
