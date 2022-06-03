@@ -5,4 +5,6 @@ class Event(
     val name: String = "",
     val datetime: Long = 0L,
     val location: String = "",
-    val description: String = "")
+    val description: String = "",
+    val update: String = ""
+)

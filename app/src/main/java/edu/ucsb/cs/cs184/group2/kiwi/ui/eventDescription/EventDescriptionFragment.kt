@@ -49,6 +49,7 @@ class EventDescriptionFragment : Fragment() {
         val timeText: TextView = binding.textViewEventTime
         val descriptionText: TextView = binding.textViewEventDescription
         val locationText: TextView = binding.textViewEventLocation
+        val updateTextDescription : TextView? = binding.textViewUpdateDescription
 
         setHasOptionsMenu(true)
 
@@ -75,13 +76,14 @@ class EventDescriptionFragment : Fragment() {
             dateText.text = date
             locationText.text = event.location
             descriptionText.text = event.description
+//            updateTextDescription?.text = event.update
             event_id = event.firebase_id
 
-            Log.i("wtf", "TimeText = $time")
-            Log.i("wtf", "TimeText = $date")
-            Log.i("wtf", "TimeText = $event.location")
-            Log.i("wtf", "TimeText = $event.description")
-            Log.i("wtf", "TimeText = $event.firebase_id")
+            Log.i("EventDescription", "Time = $time")
+            Log.i("EventDescription", "Date = $date")
+            Log.i("EventDescription", "Location = ${event.location}")
+            Log.i("EventDescription", "Description = ${event.description}")
+            Log.i("EventDescription", "Event ID = ${event.firebase_id}")
         }
 
         binding.buttonFollowEvent.setOnClickListener{
@@ -89,8 +91,9 @@ class EventDescriptionFragment : Fragment() {
         }
 
         binding.editButton.setOnClickListener{
-            var updateText = binding.updateText.text.toString()
+            var updateText = binding.updateEditTextView?.text.toString()
             updateEvent(updateText)
+            binding.updateEditTextView?.setText("")
         }
 
         return root
@@ -106,18 +109,27 @@ class EventDescriptionFragment : Fragment() {
 
     private fun updateEvent(updateText : String) {
         if (event_id == "" || event_id == null) {
-            Log.i("EventDescription", "Event ID not found.")
+            Log.i("EventDescription", "Event not found.")
             return
         }
 
         val database = Firebase.database
         val eventsRef : DatabaseReference = database.getReference("events/" + event_id.toString())
 
-        val eventReference : DatabaseReference = eventsRef.push()
-
         val eventValues: MutableMap<String, Any> = HashMap()
-        eventValues["post"] = updateText
-        eventReference.updateChildren(eventValues)
+        eventDescriptionViewModel.event.observe(viewLifecycleOwner) { event->
+            eventValues["datetime"] = event.datetime
+            eventValues["description"] = event.description
+            eventValues["location"] = event.location
+            eventValues["name"] = event.name
+            eventValues["updates"] = updateText
+
+            eventDescriptionViewModel.setUpdateText(updateText)
+        }
+
+        val updateTextDescription : TextView? = binding.textViewUpdateDescription
+        updateTextDescription?.text = updateText
+        eventsRef.updateChildren(eventValues)
     }
 
     private fun handleFollowEvent() {

@@ -11,6 +11,7 @@
     <string name="description_host_text">Hosted By: </string>
     <string name="description_date_text">Date: </string>
     <string name="description_description_text">Description: </string>
+    <string name="description_update_text">Updates: </string>
     <string name="description_location_text">Location: </string>
     <string name="description_time_text">Time: </string>
     <string name="description_follow_event_button">Follow</string>
