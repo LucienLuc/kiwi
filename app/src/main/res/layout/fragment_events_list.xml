@@ -7,40 +7,33 @@
     android:layout_height="match_parent"
     tools:context=".ui.eventsList.EventsListFragment">
 
-    <!--    <edu.ucsb.cs.cs184.group2.kiwi.views.EventsView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        />-->
 
-    <SearchView
-        android:id="@+id/searchEditText"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:hint="Search"
-        android:imeOptions="actionSearch"
-        android:singleLine="true"
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@android:drawable/ic_menu_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="search" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="@android:string/search_go"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="name" />
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchEditText"
-        app:layout_constraintVertical_bias="1.0"/>
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:text="B"
-        app:layout_constraintRight_toRightOf="@id/eventListMainLayout"
-        app:layout_constraintTop_toTopOf="@id/scrollView"/>
-
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"></ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

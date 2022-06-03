@@ -12,7 +12,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -20,8 +22,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import edu.ucsb.cs.cs184.group2.kiwi.R
 import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentLoginBinding
 import edu.ucsb.cs.cs184.group2.kiwi.ui.AccountViewModel
+
 
 class LoginFragment : Fragment() {
 
@@ -30,14 +40,13 @@ class LoginFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private val accountViewModel: AccountViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val accountViewModel =
-            ViewModelProvider(this)[AccountViewModel::class.java]
         val loginViewModel =
             ViewModelProvider(this).get(LoginViewModel::class.java)
 
@@ -97,6 +106,9 @@ class LoginFragment : Fragment() {
 
             // Signed in successfully, show authenticated UI.
             updateUI(account)
+
+            requireView().findNavController().navigate(R.id.action_navigation_login_to_navigation_home)
+            updateFirebaseUserProfile(account)
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -109,8 +121,6 @@ class LoginFragment : Fragment() {
         if (account != null) {
             val loginViewModel =
                 ViewModelProvider(this).get(LoginViewModel::class.java)
-            val accountViewModel =
-                ViewModelProvider(this)[AccountViewModel::class.java]
 
             // Update text on Login Page
             val text : String = "Welcome, " + account.displayName!! + "."
@@ -125,8 +135,6 @@ class LoginFragment : Fragment() {
         } else {
             val loginViewModel =
                 ViewModelProvider(this).get(LoginViewModel::class.java)
-            val accountViewModel =
-                ViewModelProvider(this)[AccountViewModel::class.java]
 
             // Update text on Login Page
             val text : String = "This is the login page."
@@ -140,6 +148,37 @@ class LoginFragment : Fragment() {
             Log.i("LoginFragment", "No one is logged in.")
         }
 
+    }
+
+    private fun updateFirebaseUserProfile(account : GoogleSignInAccount?) {
+        if (account != null) {
+            val database = Firebase.database
+            val usersRef: DatabaseReference = database.getReference("users")
+            val userId: String = account.id!!
+
+            /*
+            This is to check if the user already exists but we might not need this later.
+             */
+            val userExistsQuery = usersRef.orderByKey().startAt(userId)
+            userExistsQuery.addListenerForSingleValueEvent(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (user in snapshot.children) {
+                        Log.d("FirebaseLog", user.key + " -> " + user.value)
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    Log.w("FirebaseLog", "Failed to read value.", error.toException())
+                }
+            })
+
+            val keyedUserReference: DatabaseReference = usersRef.child(userId)
+            val values: MutableMap<String, Any> = HashMap()
+            values["name"] = account.displayName!!
+
+            keyedUserReference.updateChildren(values)
+
+        }
     }
 
     override fun onDestroyView() {
