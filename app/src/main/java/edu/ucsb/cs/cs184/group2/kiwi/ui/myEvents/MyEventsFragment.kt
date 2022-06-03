@@ -1,4 +1,4 @@
-package edu.ucsb.cs.cs184.group2.kiwi.ui.home
+package edu.ucsb.cs.cs184.group2.kiwi.ui.myEvents
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment() {
+import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentMyEventsBinding
 
-    private var _binding: FragmentHomeBinding? = null
+class MyEventsFragment : Fragment() {
+
+    private var _binding: FragmentMyEventsBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,9 +24,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this).get(MyEventsViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentMyEventsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textHome
