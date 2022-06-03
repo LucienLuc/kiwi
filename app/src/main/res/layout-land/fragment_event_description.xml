@@ -7,6 +7,31 @@
     android:padding="10dp"
     tools:context=".ui.eventDescription.EventDescriptionFragment">
 
+    <EditText
+        android:id="@+id/updateText"
+        android:layout_width="@dimen/event_creation_large_editText_width"
+        android:layout_height="@dimen/event_creation_large_editText_height"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/update_text"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/editButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_follow_event" />
+
     <TextView
         android:id="@+id/eventText"
         android:layout_width="wrap_content"

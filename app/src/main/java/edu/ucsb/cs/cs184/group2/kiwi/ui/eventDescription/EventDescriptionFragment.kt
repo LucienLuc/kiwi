@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -74,15 +75,49 @@ class EventDescriptionFragment : Fragment() {
             dateText.text = date
             locationText.text = event.location
             descriptionText.text = event.description
-
             event_id = event.firebase_id
+
+            Log.i("wtf", "TimeText = $time")
+            Log.i("wtf", "TimeText = $date")
+            Log.i("wtf", "TimeText = $event.location")
+            Log.i("wtf", "TimeText = $event.description")
+            Log.i("wtf", "TimeText = $event.firebase_id")
         }
 
         binding.buttonFollowEvent.setOnClickListener{
             handleFollowEvent()
         }
 
+        binding.editButton.setOnClickListener{
+            var updateText = binding.updateText.text.toString()
+            updateEvent(updateText)
+        }
+
         return root
+    }
+
+//    class EventPost {
+//        var datetime : Int = 0;
+//        var description : String = "";
+//        var location : String = "";
+//        var name : String = "";
+//        var updates : String = "";
+//    }
+
+    private fun updateEvent(updateText : String) {
+        if (event_id == "" || event_id == null) {
+            Log.i("EventDescription", "Event ID not found.")
+            return
+        }
+
+        val database = Firebase.database
+        val eventsRef : DatabaseReference = database.getReference("events/" + event_id.toString())
+
+        val eventReference : DatabaseReference = eventsRef.push()
+
+        val eventValues: MutableMap<String, Any> = HashMap()
+        eventValues["post"] = updateText
+        eventReference.updateChildren(eventValues)
     }
 
     private fun handleFollowEvent() {
