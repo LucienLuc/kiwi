@@ -16,6 +16,7 @@
         android:gravity="start|top"
         android:hint="@string/update_text"
         android:inputType="textMultiLine"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/editButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.384"
@@ -190,6 +191,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/description_follow_event_button"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewUpdateDescription" />
@@ -200,6 +202,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="160dp"
         android:text="Edit Updates"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
