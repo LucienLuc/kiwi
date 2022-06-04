@@ -293,7 +293,7 @@ class EventsListFragment : Fragment() {
             eventView.setTime(time)
 
             eventView.setOnClickListener{ view ->
-                val event: Event = Event(e.firebase_id, e.name, e.datetime, e.location, e.description)
+                val event: Event = Event(e.firebase_id, e.name, e.hosted_by, e.datetime, e.location, e.description)
                 eventDescriptionViewModel.setEvent(event)
 
                 view.findNavController().navigate(R.id.action_navigation_events_list_to_navigation_events_description)
