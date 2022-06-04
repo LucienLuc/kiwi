@@ -169,6 +169,7 @@ class EventCreationFragment : Fragment() {
             values["datetime"] = cal.timeInMillis
             values["location"] = locationTextView.text.toString()
             values["description"] = descriptionTextView.text.toString()
+            values["updates"] = ""
 
             keyedEventsReference.updateChildren(values)
 

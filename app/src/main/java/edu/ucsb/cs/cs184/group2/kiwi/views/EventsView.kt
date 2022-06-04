@@ -26,6 +26,7 @@ class EventsView: ConstraintLayout {
     private var dateTextView: TextView? = null
     private var locationTextView: TextView? = null
     private var descriptionTextView: TextView? = null
+    private var updateTextView: TextView? = null
 
     private fun init() {
         inflate(getContext(), R.layout.compound_event,this);
@@ -34,6 +35,7 @@ class EventsView: ConstraintLayout {
         dateTextView = findViewById(R.id.date)
         locationTextView = findViewById(R.id.location)
         descriptionTextView = findViewById(R.id.descriptionText)
+        updateTextView = findViewById(R.id.updateText)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -57,6 +59,10 @@ class EventsView: ConstraintLayout {
         locationTextView!!.text = location
     }
 
+    fun setUpdate(update : String) {
+        updateTextView?.text = update
+    }
+
     fun getName():String{
         return nameTextView!!.text.toString()
     }
@@ -75,5 +81,9 @@ class EventsView: ConstraintLayout {
 
     fun getDescription():String{
         return descriptionTextView!!.text.toString()
+    }
+
+    fun getUpdate():String{
+        return updateTextView!!.text.toString()
     }
 }
