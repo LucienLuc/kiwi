@@ -1,21 +1,13 @@
 package edu.ucsb.cs.cs184.group2.kiwi.ui.eventsList
 
-import MyRecyclerViewAdapter
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.view.*
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import edu.ucsb.cs.cs184.group2.kiwi.R
 import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentEventsListBinding
@@ -24,9 +16,10 @@ import edu.ucsb.cs.cs184.group2.kiwi.ui.common.convertTime
 import edu.ucsb.cs.cs184.group2.kiwi.ui.eventDescription.EventDescriptionViewModel
 import edu.ucsb.cs.cs184.group2.kiwi.views.EventsView
 import java.util.*
+import kotlin.collections.ArrayList
 
 
-class EventsListFragment : Fragment(), MyRecyclerViewAdapter.ItemClickListener {
+class EventsListFragment : Fragment() {
 
     private var _binding: FragmentEventsListBinding? = null
 
@@ -51,20 +44,20 @@ class EventsListFragment : Fragment(), MyRecyclerViewAdapter.ItemClickListener {
         val constraintLayout: ConstraintLayout = ConstraintLayout(requireContext())
         val constraintSet: ConstraintSet = ConstraintSet()
         val searchButton: ImageButton = binding.imageButton
-        val searchText:EditText = binding.editTextTextPersonName
+        val searchText: EditText = binding.editTextTextPersonName
         dr = FirebaseDatabase.getInstance().getReference("events")
 
 
-        searchButton.setOnClickListener{
+        searchButton.setOnClickListener {
             val q = searchText.text.toString()
             val query = q.replaceFirstChar { it.uppercase() }
-            val set = dr.orderByChild("name").startAt(query).endAt(query+"\uf8ff")
-            set.addListenerForSingleValueEvent(object: ValueEventListener{
+            val set = dr.orderByChild("name").startAt(query).endAt(query + "\uf8ff")
+            set.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if(snapshot.exists()){
+                    if (snapshot.exists()) {
                         viewList.clear()
                         viewListIds.clear()
-                        for(i in snapshot.children){
+                        for (i in snapshot.children) {
                             addToViewList(i)
                         }
                         constraintLayout.removeAllViews()
@@ -114,9 +107,12 @@ class EventsListFragment : Fragment(), MyRecyclerViewAdapter.ItemClickListener {
                             )
                         }
                         constraintSet.applyTo(constraintLayout)
-                    }
-                    else {
-                        Toast.makeText(context, "No events found that match this query", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "No events found that match this query",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         viewList.clear()
                         viewListIds.clear()
                         constraintLayout.removeAllViews()
@@ -132,10 +128,10 @@ class EventsListFragment : Fragment(), MyRecyclerViewAdapter.ItemClickListener {
         viewList.clear()
         viewListIds.clear()
         dr = FirebaseDatabase.getInstance().getReference("events")
-        dr.addListenerForSingleValueEvent(object: ValueEventListener{
+        dr.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    for(i in snapshot.children){
+                if (snapshot.exists()) {
+                    for (i in snapshot.children) {
                         addToViewList(i)
                     }
                     constraintLayout.removeAllViews()
@@ -185,8 +181,7 @@ class EventsListFragment : Fragment(), MyRecyclerViewAdapter.ItemClickListener {
                         )
                     }
                     constraintSet.applyTo(constraintLayout)
-                }
-                else {
+                } else {
                     Toast.makeText(context, "Data does not exist", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -270,26 +265,9 @@ class EventsListFragment : Fragment(), MyRecyclerViewAdapter.ItemClickListener {
 
         }
 
-        binding.recyclerView.addView(constraintLayout)
-        val animalNames: ArrayList<String> = ArrayList()
-        animalNames.add("Horse")
-        animalNames.add("Cow")
-        animalNames.add("Camel")
-        animalNames.add("Sheep")
-        animalNames.add("Goat")
+        binding.scrollView.addView(constraintLayout)
 
-        // set up the RecyclerView
-
-        // set up the RecyclerView
-        val recyclerView: RecyclerView = binding.recyclerView
-        // recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = MyRecyclerViewAdapter(requireContext(), animalNames)
-        adapter.setClickListener(this)
-        recyclerView.adapter = adapter
-
-        val root: View = binding.root
-
-        return root
+        return binding.root
     }
 
     fun addToViewList(s:DataSnapshot){
@@ -325,9 +303,5 @@ class EventsListFragment : Fragment(), MyRecyclerViewAdapter.ItemClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onItemClick(view: View?, position: Int) {
-        Log.d("RecyclerView", "You clicked $position")
     }
 }
