@@ -1,18 +1,21 @@
 package edu.ucsb.cs.cs184.group2.kiwi.ui.eventsList
 
-import android.content.Intent
+import MyRecyclerViewAdapter
 import android.os.Bundle
 import android.util.Log
-import android.view.*
-import android.view.inputmethod.EditorInfo
-import android.widget.*
-import android.widget.TextView.OnEditorActionListener
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.constraintlayout.widget.VirtualLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import edu.ucsb.cs.cs184.group2.kiwi.R
 import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentEventsListBinding
@@ -20,12 +23,10 @@ import edu.ucsb.cs.cs184.group2.kiwi.ui.common.Event
 import edu.ucsb.cs.cs184.group2.kiwi.ui.common.convertTime
 import edu.ucsb.cs.cs184.group2.kiwi.ui.eventDescription.EventDescriptionViewModel
 import edu.ucsb.cs.cs184.group2.kiwi.views.EventsView
-import java.lang.ref.PhantomReference
 import java.util.*
-import kotlin.collections.ArrayList
 
 
-class EventsListFragment : Fragment() {
+class EventsListFragment : Fragment(), MyRecyclerViewAdapter.ItemClickListener {
 
     private var _binding: FragmentEventsListBinding? = null
 
@@ -269,9 +270,25 @@ class EventsListFragment : Fragment() {
 
         }
 
-        binding.scrollView.addView(constraintLayout)
+        binding.recyclerView.addView(constraintLayout)
+        val animalNames: ArrayList<String> = ArrayList()
+        animalNames.add("Horse")
+        animalNames.add("Cow")
+        animalNames.add("Camel")
+        animalNames.add("Sheep")
+        animalNames.add("Goat")
+
+        // set up the RecyclerView
+
+        // set up the RecyclerView
+        val recyclerView: RecyclerView = binding.recyclerView
+        // recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val adapter = MyRecyclerViewAdapter(requireContext(), animalNames)
+        adapter.setClickListener(this)
+        recyclerView.adapter = adapter
 
         val root: View = binding.root
+
         return root
     }
 
@@ -308,5 +325,9 @@ class EventsListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemClick(view: View?, position: Int) {
+        Log.d("RecyclerView", "You clicked $position")
     }
 }

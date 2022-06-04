@@ -19,6 +19,11 @@
 <!--Events List-->
     <string name="title_events_list">View Events </string>
 
+<!--My Events-->
+    <string name="my_upcoming_events">My Upcoming Events</string>
+    <string name="my_hosted_events">My Hosted Events</string>
+    <string name="event_updates">Event Updates</string>
+
 <!--Event Creation and Compound Event-->
     <string name="event_name">Event Name: </string>
     <string name="event_creation_datentime">Date and Time: </string>
