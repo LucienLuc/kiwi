@@ -92,8 +92,9 @@ class MainActivity : AppCompatActivity() {
                         val datetime = snap.child("datetime").value as Long
                         val location = snap.child("location").value as String
                         val description = snap.child("description").value as String
+                        val updates = snap.child("updates").value as String
 
-                        val event = Event(nodId!!, name, hosted_by, datetime, location, description)
+                        val event = Event(nodId!!, name, hosted_by, datetime, location, description, updates)
                         eventsList.add(event)
 
                         //received results

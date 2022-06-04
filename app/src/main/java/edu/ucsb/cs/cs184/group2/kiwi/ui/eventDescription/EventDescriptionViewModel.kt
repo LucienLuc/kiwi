@@ -11,8 +11,14 @@ class EventDescriptionViewModel : ViewModel() {
 
     private val _followButtonText = MutableLiveData<String>()
 
+    private var _updates = MutableLiveData<String>()
+
     fun setEvent(event: Event) {
         _event.value = event
+    }
+
+    fun setUpdateText(update : String) {
+        _updates.value = update
     }
 
     fun setFollowButtonText(text: String) {

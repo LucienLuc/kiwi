@@ -6,4 +6,6 @@ class Event(
     val hosted_by: String = "",
     val datetime: Long = 0L,
     val location: String = "",
-    val description: String = "")
+    val description: String = "",
+    val updates: String = ""
+)
