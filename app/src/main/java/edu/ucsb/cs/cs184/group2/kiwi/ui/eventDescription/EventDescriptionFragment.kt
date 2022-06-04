@@ -17,6 +17,9 @@ import com.google.firebase.ktx.Firebase
 import edu.ucsb.cs.cs184.group2.kiwi.R
 import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentEventDescriptionBinding
 import edu.ucsb.cs.cs184.group2.kiwi.ui.AccountViewModel
+import edu.ucsb.cs.cs184.group2.kiwi.ui.common.convertTime
+import java.util.*
+import kotlin.collections.HashMap
 
 class EventDescriptionFragment : Fragment() {
 
@@ -61,8 +64,14 @@ class EventDescriptionFragment : Fragment() {
             eventText.text = event.name
 //            Need to add Host to database and viewmodel and class
 //            hostText.text = event.host
-            timeText.text = event.time
-            dateText.text = event.date
+            val c: Calendar = Calendar.getInstance()
+            c.timeInMillis = event.datetime
+
+            val time: String = convertTime(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE))
+            val date: String = (c.get(Calendar.MONTH)+1).toString() + "/" + c.get(Calendar.DAY_OF_MONTH).toString() + "/" + c.get(Calendar.YEAR).toString()
+
+            timeText.text = time
+            dateText.text = date
             locationText.text = event.location
             descriptionText.text = event.description
 
