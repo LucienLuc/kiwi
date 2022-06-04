@@ -69,6 +69,11 @@ class EventCreationFragment : Fragment() {
             binding.editTextDescription.text = it
         }
 
+        // Update user
+        accountViewModel.account.observe(viewLifecycleOwner) {
+            account = it
+        }
+
         val timeTextView: TextView = binding.editTextTime
         timeTextView.inputType = InputType.TYPE_NULL
 
@@ -160,16 +165,13 @@ class EventCreationFragment : Fragment() {
             val values: MutableMap<String, Any> = HashMap()
             val name = nameTextView.text.toString().replaceFirstChar { it.uppercase() }
             values["name"] = name
+            values["hosted_by"] = account!!.displayName!!
             values["datetime"] = cal.timeInMillis
             values["location"] = locationTextView.text.toString()
             values["description"] = descriptionTextView.text.toString()
 
             keyedEventsReference.updateChildren(values)
 
-            // Update user
-            accountViewModel.account.observe(viewLifecycleOwner) {
-                account = it
-            }
             if (account == null) {
                 Snackbar.make(requireView(), R.string.login_error, Snackbar.LENGTH_SHORT).show()
             }
