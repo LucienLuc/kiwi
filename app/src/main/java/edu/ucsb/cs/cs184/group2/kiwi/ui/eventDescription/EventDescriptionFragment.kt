@@ -1,6 +1,7 @@
 package edu.ucsb.cs.cs184.group2.kiwi.ui.eventDescription
 
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.*
 import android.widget.TextView
@@ -76,13 +77,17 @@ class EventDescriptionFragment : Fragment() {
             dateText.text = date
             locationText.text = event.location
             descriptionText.text = event.description
-//            updateTextDescription?.text = event.update
+            updateTextDescription?.text = event.updates
+            binding.updateEditTextView.setText(event.updates)
             event_id = event.firebase_id
+
+            handleHostedEvent()
 
             Log.i("EventDescription", "Time = $time")
             Log.i("EventDescription", "Date = $date")
             Log.i("EventDescription", "Location = ${event.location}")
             Log.i("EventDescription", "Description = ${event.description}")
+            Log.i("EventDescription", "Description = ${event.updates}")
             Log.i("EventDescription", "Event ID = ${event.firebase_id}")
         }
 
@@ -93,7 +98,7 @@ class EventDescriptionFragment : Fragment() {
         binding.editButton.setOnClickListener{
             var updateText = binding.updateEditTextView?.text.toString()
             updateEvent(updateText)
-            binding.updateEditTextView?.setText("")
+//            binding.updateEditTextView?.setText("")
         }
 
         return root
@@ -130,6 +135,47 @@ class EventDescriptionFragment : Fragment() {
         val updateTextDescription : TextView? = binding.textViewUpdateDescription
         updateTextDescription?.text = updateText
         eventsRef.updateChildren(eventValues)
+    }
+
+    private fun handleHostedEvent() {
+        val database = Firebase.database
+        val usersRef: DatabaseReference = database.getReference("users")
+
+        if (account != null) {
+            val userId = account!!.id
+
+            val path = userId!! + "/created_events"
+            val keyedUserFollowedEventsReference: DatabaseReference = usersRef.child(path)
+
+            val hostedEventsQuery = keyedUserFollowedEventsReference.orderByValue()
+            hostedEventsQuery.addListenerForSingleValueEvent(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    // Event host is account
+                    for (event in snapshot.children) {
+                        for (id in event.children) {
+                            if(id.value.toString() == event_id!!) {
+                                // Is host
+                                binding.buttonFollowEvent.visibility = TextView.INVISIBLE
+                                binding.updateEditTextView.visibility = TextView.VISIBLE
+                                binding.editButton.visibility = TextView.VISIBLE
+                                return
+                            }
+                        }
+                    }
+                    // Is not host
+                    binding.buttonFollowEvent.visibility = TextView.VISIBLE
+                    binding.updateEditTextView.visibility = TextView.INVISIBLE
+                    binding.editButton.visibility = TextView.INVISIBLE
+
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    Log.w("FirebaseLog", "Failed to read value.", error.toException())
+                }
+            })
+
+        }
+
     }
 
     private fun handleFollowEvent() {

@@ -91,9 +91,17 @@ class MainActivity : AppCompatActivity() {
                         val datetime = snap.child("datetime").value as Long
                         val location = snap.child("location").value as String
                         val description = snap.child("description").value as String
+                        val updates = snap.child("updates").value as String
 
-                        val event = Event(nodId!!, name, datetime, location, description)
-                        eventsList.add(event)
+                        if (updates == null) {
+                            val event = Event(nodId!!, name, datetime, location, description, "")
+                            eventsList.add(event)
+                        } else {
+                            val event = Event(nodId!!, name, datetime, location, description, updates)
+                            eventsList.add(event)
+                        }
+
+
 
                         //received results
                         Log.i("FirebaseLog", "$name on nod $nodId")
