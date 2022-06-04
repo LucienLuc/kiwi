@@ -66,7 +66,7 @@ class EventDescriptionFragment : Fragment() {
         eventDescriptionViewModel.event.observe(viewLifecycleOwner) { event->
             eventText.text = event.name
 //            Need to add Host to database and viewmodel and class
-//            hostText.text = event.host
+            hostText.text = event.hosted_by
             val c: Calendar = Calendar.getInstance()
             c.timeInMillis = event.datetime
 

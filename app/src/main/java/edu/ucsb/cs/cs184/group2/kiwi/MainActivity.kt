@@ -88,20 +88,14 @@ class MainActivity : AppCompatActivity() {
                         val nodId = snap.key
 
                         val name = snap.child("name").value as String
+                        val hosted_by = snap.child("hosted_by").value as String
                         val datetime = snap.child("datetime").value as Long
                         val location = snap.child("location").value as String
                         val description = snap.child("description").value as String
                         val updates = snap.child("updates").value as String
 
-                        if (updates == null) {
-                            val event = Event(nodId!!, name, datetime, location, description, "")
-                            eventsList.add(event)
-                        } else {
-                            val event = Event(nodId!!, name, datetime, location, description, updates)
-                            eventsList.add(event)
-                        }
-
-
+                        val event = Event(nodId!!, name, hosted_by, datetime, location, description, updates)
+                        eventsList.add(event)
 
                         //received results
                         Log.i("FirebaseLog", "$name on nod $nodId")
@@ -145,11 +139,12 @@ class MainActivity : AppCompatActivity() {
                                         val nodId = snap.key
 
                                         val name = snap.child("name").value as String
+                                        val hosted_by = snap.child("hosted_by").value as String
                                         val datetime = snap.child("datetime").value as Long
                                         val location = snap.child("location").value as String
                                         val description = snap.child("description").value as String
 
-                                        val e = Event(nodId!!, name, datetime, location, description)
+                                        val e = Event(nodId!!, name, hosted_by, datetime, location, description)
                                         followedEventsList.add(e)
 
                                         //received results
@@ -201,11 +196,12 @@ class MainActivity : AppCompatActivity() {
                                         val nodId = snap.key
 
                                         val name = snap.child("name").value as String
+                                        val hosted_by = snap.child("hosted_by").value as String
                                         val datetime = snap.child("datetime").value as Long
                                         val location = snap.child("location").value as String
                                         val description = snap.child("description").value as String
 
-                                        val e = Event(nodId!!, name, datetime, location, description)
+                                        val e = Event(nodId!!, name, hosted_by, datetime, location, description)
                                         createdEventsList.add(e)
 
                                         //received results

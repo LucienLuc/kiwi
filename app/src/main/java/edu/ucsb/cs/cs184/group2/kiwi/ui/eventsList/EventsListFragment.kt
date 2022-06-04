@@ -294,7 +294,7 @@ class EventsListFragment : Fragment() {
             eventView.setTime(time)
 
             eventView.setOnClickListener{ view ->
-                val event: Event = Event(s.key!!, e.name, e.datetime, e.location, e.description, e.updates)
+                val event: Event = Event(s.key!!, e.name, e.hosted_by, e.datetime, e.location, e.description, e.updates)
                 eventDescriptionViewModel.setEvent(event)
 
                 view.findNavController().navigate(R.id.action_navigation_events_list_to_navigation_events_description)
