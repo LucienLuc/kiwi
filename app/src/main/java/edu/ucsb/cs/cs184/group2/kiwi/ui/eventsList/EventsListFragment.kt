@@ -193,75 +193,7 @@ class EventsListFragment : Fragment() {
 
 
         eventsListViewModel.events.observe(viewLifecycleOwner) {
-//            viewList.clear()
-//            viewListIds.clear()
-//            for (e in it) {
-//                val eventView: EventsView = EventsView(requireContext())
-//                eventView.id = View.generateViewId()
-//                eventView.setName(e.name)
-//                eventView.setTime(e.time)
-//                eventView.setDate(e.date)
-//                eventView.setLocation(e.location)
-//
-//                eventView.setOnClickListener{ view ->
-//                    val event: Event = Event(e.name, e.date, e.time, e.location, e.description)
-//                    eventDescriptionViewModel.setEvent(event)
-//
-//                    view.findNavController().navigate(R.id.action_navigation_events_list_to_navigation_events_description)
-//                }
-//
-//                viewList.add(eventView)
-//                viewListIds.add(eventView.id)
-//
-//            }
-//
-//            constraintLayout.removeAllViews()
-//            for (event in viewList) {
-//                constraintLayout.addView(event)
-//            }
-//
-//            constraintSet.clone(constraintLayout)
-//            var previousItem: View? = null
-//            for (view in viewList) {
-//                val lastItem = viewList.indexOf(view) === viewList.size - 1
-//                if (previousItem == null) {
-//                    constraintSet.connect(
-//                        view.id,
-//                        ConstraintSet.LEFT,
-//                        ConstraintSet.PARENT_ID,
-//                        ConstraintSet.LEFT
-//                    )
-//                } else {
-//                    constraintSet.connect(
-//                        view.id,
-//                        ConstraintSet.BOTTOM,
-//                        previousItem.getId(),
-//                        ConstraintSet.TOP
-//                    )
-//                    if (lastItem) {
-//                        constraintSet.connect(
-//                            view.id,
-//                            ConstraintSet.RIGHT,
-//                            ConstraintSet.PARENT_ID,
-//                            ConstraintSet.RIGHT
-//                        )
-//                    }
-//                }
-//                previousItem = view
-//            }
-//
-//            if (viewList.size > 1) {
-//                constraintSet.createVerticalChain(
-//                    ConstraintSet.PARENT_ID,
-//                    ConstraintSet.TOP,
-//                    ConstraintSet.PARENT_ID,
-//                    ConstraintSet.BOTTOM,
-//                    viewListIds.toIntArray(),
-//                    null,
-//                    ConstraintSet.CHAIN_PACKED
-//                )
-//            }
-//            constraintSet.applyTo(constraintLayout)
+
 
         }
 
