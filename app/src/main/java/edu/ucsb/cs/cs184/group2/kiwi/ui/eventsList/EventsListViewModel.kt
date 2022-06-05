@@ -14,10 +14,9 @@ class EventsListViewModel : ViewModel() {
         _events.value = eventsList
     }
     fun setQuery(q:String){
-
+        _query.value = q
     }
 
-
     val events: LiveData<ArrayList<Event>> = _events
-
+    val query:LiveData<String> = _query
 }

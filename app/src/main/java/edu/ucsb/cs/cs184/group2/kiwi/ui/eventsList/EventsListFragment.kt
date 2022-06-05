@@ -51,7 +51,78 @@ class EventsListFragment : Fragment() {
         searchButton.setOnClickListener {
             val q = searchText.text.toString()
             val query = q.replaceFirstChar { it.uppercase() }
-            val set = dr.orderByChild("name").startAt(query).endAt(query + "\uf8ff")
+            eventsListViewModel.setQuery(query)
+        }
+
+        viewList.clear()
+        viewListIds.clear()
+        dr = FirebaseDatabase.getInstance().getReference("events")
+        dr.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (i in snapshot.children) {
+                        addToViewList(i)
+                    }
+                    constraintLayout.removeAllViews()
+                    for (event in viewList) {
+                        constraintLayout.addView(event)
+                    }
+
+                    constraintSet.clone(constraintLayout)
+                    var previousItem: View? = null
+                    for (view in viewList) {
+                        val lastItem = viewList.indexOf(view) === viewList.size - 1
+                        if (previousItem == null) {
+                            constraintSet.connect(
+                                view.id,
+                                ConstraintSet.LEFT,
+                                ConstraintSet.PARENT_ID,
+                                ConstraintSet.LEFT
+                            )
+                        } else {
+                            constraintSet.connect(
+                                view.id,
+                                ConstraintSet.BOTTOM,
+                                previousItem!!.getId(),
+                                ConstraintSet.TOP
+                            )
+                            if (lastItem) {
+                                constraintSet.connect(
+                                    view.id,
+                                    ConstraintSet.RIGHT,
+                                    ConstraintSet.PARENT_ID,
+                                    ConstraintSet.RIGHT
+                                )
+                            }
+                        }
+                        previousItem = view
+                    }
+
+                    if (viewList.size > 1) {
+                        constraintSet.createVerticalChain(
+                            ConstraintSet.PARENT_ID,
+                            ConstraintSet.TOP,
+                            ConstraintSet.PARENT_ID,
+                            ConstraintSet.BOTTOM,
+                            viewListIds.toIntArray(),
+                            null,
+                            ConstraintSet.CHAIN_PACKED
+                        )
+                    }
+                    constraintSet.applyTo(constraintLayout)
+                } else {
+                    Toast.makeText(context, "Data does not exist", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+
+
+        eventsListViewModel.query.observe(viewLifecycleOwner) {
+            val set = dr.orderByChild("name").startAt(it).endAt(it + "\uf8ff")
             set.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
@@ -123,77 +194,6 @@ class EventsListFragment : Fragment() {
 
                 }
             })
-        }
-
-        viewList.clear()
-        viewListIds.clear()
-        dr = FirebaseDatabase.getInstance().getReference("events")
-        dr.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    for (i in snapshot.children) {
-                        addToViewList(i)
-                    }
-                    constraintLayout.removeAllViews()
-                    for (event in viewList) {
-                        constraintLayout.addView(event)
-                    }
-
-                    constraintSet.clone(constraintLayout)
-                    var previousItem: View? = null
-                    for (view in viewList) {
-                        val lastItem = viewList.indexOf(view) === viewList.size - 1
-                        if (previousItem == null) {
-                            constraintSet.connect(
-                                view.id,
-                                ConstraintSet.LEFT,
-                                ConstraintSet.PARENT_ID,
-                                ConstraintSet.LEFT
-                            )
-                        } else {
-                            constraintSet.connect(
-                                view.id,
-                                ConstraintSet.BOTTOM,
-                                previousItem!!.getId(),
-                                ConstraintSet.TOP
-                            )
-                            if (lastItem) {
-                                constraintSet.connect(
-                                    view.id,
-                                    ConstraintSet.RIGHT,
-                                    ConstraintSet.PARENT_ID,
-                                    ConstraintSet.RIGHT
-                                )
-                            }
-                        }
-                        previousItem = view
-                    }
-
-                    if (viewList.size > 1) {
-                        constraintSet.createVerticalChain(
-                            ConstraintSet.PARENT_ID,
-                            ConstraintSet.TOP,
-                            ConstraintSet.PARENT_ID,
-                            ConstraintSet.BOTTOM,
-                            viewListIds.toIntArray(),
-                            null,
-                            ConstraintSet.CHAIN_PACKED
-                        )
-                    }
-                    constraintSet.applyTo(constraintLayout)
-                } else {
-                    Toast.makeText(context, "Data does not exist", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-        })
-
-
-        eventsListViewModel.events.observe(viewLifecycleOwner) {
-
 
         }
 
@@ -235,6 +235,10 @@ class EventsListFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        val searchText: EditText = binding.editTextTextPersonName
+        val q = searchText.text.toString()
+        val query = q.replaceFirstChar { it.uppercase() }
+        eventsListViewModel.setQuery(query)
         _binding = null
     }
 }
