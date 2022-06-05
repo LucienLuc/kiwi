@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:id="@+id/navigation_my_events"
+        android:icon="@drawable/ic_baseline_account_circle_24"
+        android:title="@string/title_my_events" />
 
     <item
         android:id="@+id/navigation_events_list"
@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/navigation_event_creation"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_baseline_event_24"
         android:title="@string/title_event_creation" />
 
 </menu>

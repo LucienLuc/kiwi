@@ -6,10 +6,14 @@
     app:startDestination="@+id/navigation_login">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_my_events"
+        android:name="edu.ucsb.cs.cs184.group2.kiwi.ui.myEvents.MyEventsFragment"
+        android:label="@string/title_my_events"
+        tools:layout="@layout/fragment_my_events">
+        <action
+            android:id="@+id/action_navigation_my_events_to_navigation_events_description"
+            app:destination="@id/navigation_event_description" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_events_list"
@@ -35,7 +39,7 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_navigation_login_to_navigation_home"
-            app:destination="@id/navigation_home" />
+            app:destination="@id/navigation_my_events" />
     </fragment>
 
     <fragment

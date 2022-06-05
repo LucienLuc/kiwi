@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Kiwi</string>
-    <string name="title_home">Home</string>
+    <string name="title_my_events">My Events</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_login">Login</string>
     <string name="title_event_creation">Create Event</string>
@@ -20,6 +20,11 @@
 
 <!--Events List-->
     <string name="title_events_list">View Events </string>
+
+<!--My Events-->
+    <string name="my_upcoming_events">My Upcoming Events</string>
+    <string name="my_hosted_events">My Hosted Events</string>
+    <string name="event_updates">Event Updates</string>
 
 <!--Event Creation and Compound Event-->
     <string name="event_name">Event Name: </string>

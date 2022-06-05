@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_events_list, R.id.navigation_event_creation,R.id.navigation_login,
+                R.id.navigation_my_events, R.id.navigation_events_list, R.id.navigation_event_creation,R.id.navigation_login,
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -143,14 +143,14 @@ class MainActivity : AppCompatActivity() {
                                         val datetime = snap.child("datetime").value as Long
                                         val location = snap.child("location").value as String
                                         val description = snap.child("description").value as String
+                                        val updates = snap.child("updates").value as String
 
-                                        val e = Event(nodId!!, name, hosted_by, datetime, location, description)
+                                        val e = Event(nodId!!, name, hosted_by, datetime, location, description, updates)
                                         followedEventsList.add(e)
 
                                         //received results
                                         Log.d("FirebaseLog", "Followed event $name on nod $nodId")
                                     }
-                                    followedEventsViewModel.setEvents(followedEventsList)
                                 }
                             }
 
@@ -160,6 +160,7 @@ class MainActivity : AppCompatActivity() {
                         })
                     }
                 }
+                followedEventsViewModel.setEvents(followedEventsList)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -200,14 +201,14 @@ class MainActivity : AppCompatActivity() {
                                         val datetime = snap.child("datetime").value as Long
                                         val location = snap.child("location").value as String
                                         val description = snap.child("description").value as String
+                                        val updates = snap.child("updates").value as String
 
-                                        val e = Event(nodId!!, name, hosted_by, datetime, location, description)
+                                        val e = Event(nodId!!, name, hosted_by, datetime, location, description, updates)
                                         createdEventsList.add(e)
 
                                         //received results
                                         Log.d("FirebaseLog", "Created event $name on nod $nodId")
                                     }
-                                    createdEventsViewModel.setEvents(createdEventsList)
                                 }
                             }
 
@@ -217,6 +218,7 @@ class MainActivity : AppCompatActivity() {
                         })
                     }
                 }
+                createdEventsViewModel.setEvents(createdEventsList)
             }
 
             override fun onCancelled(error: DatabaseError) {

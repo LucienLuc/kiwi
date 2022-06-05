@@ -6,15 +6,17 @@ import androidx.lifecycle.ViewModel
 import edu.ucsb.cs.cs184.group2.kiwi.ui.common.Event
 
 class EventsListViewModel : ViewModel() {
-
     private val _events = MutableLiveData<ArrayList<Event>>()
+    private val _query = MutableLiveData<String>()
+
 
     fun setEvents(eventsList: ArrayList<Event>) {
         _events.value = eventsList
     }
-
-
+    fun setQuery(q:String){
+        _query.value = q
+    }
 
     val events: LiveData<ArrayList<Event>> = _events
-
+    val query:LiveData<String> = _query
 }

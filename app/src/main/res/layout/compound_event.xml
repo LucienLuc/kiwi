@@ -46,11 +46,11 @@
             android:text="@string/event_location"
             app:layout_constraintBottom_toTopOf="@+id/divider"
             app:layout_constraintStart_toStartOf="@+id/time"
-            app:layout_constraintTop_toBottomOf="@+id/time" /> />
+            app:layout_constraintTop_toBottomOf="@+id/time" />
 
         <View
             android:id="@+id/divider"
-            android:layout_width="409dp"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -59,7 +59,7 @@
 
         <View
             android:id="@+id/divider2"
-            android:layout_width="409dp"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintBottom_toTopOf="@+id/name"
