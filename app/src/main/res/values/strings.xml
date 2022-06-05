@@ -24,7 +24,8 @@
 <!--My Events-->
     <string name="my_upcoming_events">My Upcoming Events</string>
     <string name="my_hosted_events">My Hosted Events</string>
-    <string name="event_updates">Event Updates</string>
+    <string name="empty_my_upcoming_events">Find and follow an event and it will show up here!</string>
+    <string name="empty_my_hosted_event">Create a new event and it will show up here!</string>
 
 <!--Event Creation and Compound Event-->
     <string name="event_name">Event Name: </string>

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -56,160 +57,207 @@ class MyEventsFragment : Fragment() {
         followedEventsViewModel.events.observe(viewLifecycleOwner) {
             viewListFollow.clear()
             viewListIdsFollow.clear()
-            for (e in it) {
-                val eventView: EventsView = EventsView(requireContext())
-                eventView.id = View.generateViewId()
-                eventView.setName(e.name)
+            if (it.size == 0) {
+                constraintLayoutFollow.removeAllViews()
+                val emptyFollowEventsText: TextView = TextView(requireContext())
+                emptyFollowEventsText.id = View.generateViewId()
+                emptyFollowEventsText.text = resources.getString(R.string.empty_my_upcoming_events)
 
-                eventView.setLocation(e.location)
-                val c: Calendar = Calendar.getInstance()
-                c.timeInMillis = e.datetime
+                constraintLayoutFollow.addView(emptyFollowEventsText)
 
-                val time: String = convertTime(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE))
-                val date: String = (c.get(Calendar.MONTH)+1).toString() + "/" + c.get(Calendar.DAY_OF_MONTH).toString() + "/" + c.get(Calendar.YEAR).toString()
+                constraintSetFollow.clone(constraintLayoutFollow)
+            }
+            else {
+                for (e in it) {
+                    val eventView: EventsView = EventsView(requireContext())
+                    eventView.id = View.generateViewId()
+                    eventView.setName(e.name)
 
-                eventView.setDate(date)
-                eventView.setTime(time)
+                    eventView.setLocation(e.location)
+                    val c: Calendar = Calendar.getInstance()
+                    c.timeInMillis = e.datetime
 
-                eventView.setOnClickListener{ view ->
-                    val event: Event = Event(e.firebase_id, e.name, e.hosted_by, e.datetime, e.location, e.description, e.updates)
-                    eventDescriptionViewModel.setEvent(event)
+                    val time: String =
+                        convertTime(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE))
+                    val date: String =
+                        (c.get(Calendar.MONTH) + 1).toString() + "/" + c.get(Calendar.DAY_OF_MONTH)
+                            .toString() + "/" + c.get(Calendar.YEAR).toString()
 
-                    view.findNavController().navigate(R.id.action_navigation_my_events_to_navigation_events_description)
+                    eventView.setDate(date)
+                    eventView.setTime(time)
+
+                    eventView.setOnClickListener { view ->
+                        val event: Event = Event(
+                            e.firebase_id,
+                            e.name,
+                            e.hosted_by,
+                            e.datetime,
+                            e.location,
+                            e.description,
+                            e.updates
+                        )
+                        eventDescriptionViewModel.setEvent(event)
+
+                        view.findNavController()
+                            .navigate(R.id.action_navigation_my_events_to_navigation_events_description)
+                    }
+
+                    viewListFollow.add(eventView)
+                    viewListIdsFollow.add(eventView.id)
+
                 }
 
-                viewListFollow.add(eventView)
-                viewListIdsFollow.add(eventView.id)
+                constraintLayoutFollow.removeAllViews()
+                for (event in viewListFollow) {
+                    constraintLayoutFollow.addView(event)
+                }
 
-            }
-
-            constraintLayoutFollow.removeAllViews()
-            for (event in viewListFollow) {
-                constraintLayoutFollow.addView(event)
-            }
-
-            constraintSetFollow.clone(constraintLayoutFollow)
-            var previousItem: View? = null
-            for (view in viewListFollow) {
-                val lastItem = viewListFollow.indexOf(view) === viewListFollow.size - 1
-                if (previousItem == null) {
-                    constraintSetFollow.connect(
-                        view.id,
-                        ConstraintSet.LEFT,
-                        ConstraintSet.PARENT_ID,
-                        ConstraintSet.LEFT
-                    )
-                } else {
-                    constraintSetFollow.connect(
-                        view.id,
-                        ConstraintSet.BOTTOM,
-                        previousItem.getId(),
-                        ConstraintSet.TOP
-                    )
-                    if (lastItem) {
+                constraintSetFollow.clone(constraintLayoutFollow)
+                var previousItem: View? = null
+                for (view in viewListFollow) {
+                    val lastItem = viewListFollow.indexOf(view) === viewListFollow.size - 1
+                    if (previousItem == null) {
                         constraintSetFollow.connect(
                             view.id,
-                            ConstraintSet.RIGHT,
+                            ConstraintSet.LEFT,
                             ConstraintSet.PARENT_ID,
-                            ConstraintSet.RIGHT
+                            ConstraintSet.LEFT
                         )
+                    } else {
+                        constraintSetFollow.connect(
+                            view.id,
+                            ConstraintSet.BOTTOM,
+                            previousItem.getId(),
+                            ConstraintSet.TOP
+                        )
+                        if (lastItem) {
+                            constraintSetFollow.connect(
+                                view.id,
+                                ConstraintSet.RIGHT,
+                                ConstraintSet.PARENT_ID,
+                                ConstraintSet.RIGHT
+                            )
+                        }
                     }
+                    previousItem = view
                 }
-                previousItem = view
-            }
 
-            if (viewListFollow.size > 1) {
-                constraintSetFollow.createVerticalChain(
-                    ConstraintSet.PARENT_ID,
-                    ConstraintSet.TOP,
-                    ConstraintSet.PARENT_ID,
-                    ConstraintSet.BOTTOM,
-                    viewListIdsFollow.toIntArray(),
-                    null,
-                    ConstraintSet.CHAIN_PACKED
-                )
+                if (viewListFollow.size > 1) {
+                    constraintSetFollow.createVerticalChain(
+                        ConstraintSet.PARENT_ID,
+                        ConstraintSet.TOP,
+                        ConstraintSet.PARENT_ID,
+                        ConstraintSet.BOTTOM,
+                        viewListIdsFollow.toIntArray(),
+                        null,
+                        ConstraintSet.CHAIN_PACKED
+                    )
+                }
+                constraintSetFollow.applyTo(constraintLayoutFollow)
             }
-            constraintSetFollow.applyTo(constraintLayoutFollow)
 
         }
 
-        createdEventsViewModel.events.observe(viewLifecycleOwner){
+        createdEventsViewModel.events.observe(viewLifecycleOwner) {
             viewListCreate.clear()
             viewListIdsCreate.clear()
-            for (e in it) {
-                val eventView: EventsView = EventsView(requireContext())
-                eventView.id = View.generateViewId()
-                eventView.setName(e.name)
+            if (it.size == 0) {
+                constraintLayoutCreate.removeAllViews()
+                val emptyCreateEventsText: TextView = TextView(requireContext())
+                emptyCreateEventsText.id = View.generateViewId()
+                emptyCreateEventsText.text = resources.getString(R.string.empty_my_hosted_event)
 
-                eventView.setLocation(e.location)
-                val c: Calendar = Calendar.getInstance()
-                c.timeInMillis = e.datetime
+                constraintLayoutCreate.addView(emptyCreateEventsText)
 
-                val time: String = convertTime(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE))
-                val date: String = (c.get(Calendar.MONTH)+1).toString() + "/" + c.get(Calendar.DAY_OF_MONTH).toString() + "/" + c.get(Calendar.YEAR).toString()
+                constraintSetCreate.clone(constraintLayoutCreate)
+            } else {
+                for (e in it) {
+                    val eventView: EventsView = EventsView(requireContext())
+                    eventView.id = View.generateViewId()
+                    eventView.setName(e.name)
 
-                eventView.setDate(date)
-                eventView.setTime(time)
+                    eventView.setLocation(e.location)
+                    val c: Calendar = Calendar.getInstance()
+                    c.timeInMillis = e.datetime
 
-                eventView.setOnClickListener{ view ->
-                    val event: Event = Event(e.firebase_id, e.name, e.hosted_by, e.datetime, e.location, e.description, e.updates)
-                    eventDescriptionViewModel.setEvent(event)
+                    val time: String =
+                        convertTime(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE))
+                    val date: String =
+                        (c.get(Calendar.MONTH) + 1).toString() + "/" + c.get(Calendar.DAY_OF_MONTH)
+                            .toString() + "/" + c.get(Calendar.YEAR).toString()
 
-                    view.findNavController().navigate(R.id.action_navigation_my_events_to_navigation_events_description)
+                    eventView.setDate(date)
+                    eventView.setTime(time)
+
+                    eventView.setOnClickListener { view ->
+                        val event: Event = Event(
+                            e.firebase_id,
+                            e.name,
+                            e.hosted_by,
+                            e.datetime,
+                            e.location,
+                            e.description,
+                            e.updates
+                        )
+                        eventDescriptionViewModel.setEvent(event)
+
+                        view.findNavController()
+                            .navigate(R.id.action_navigation_my_events_to_navigation_events_description)
+                    }
+
+                    viewListCreate.add(eventView)
+                    viewListIdsCreate.add(eventView.id)
+
                 }
 
-                viewListCreate.add(eventView)
-                viewListIdsCreate.add(eventView.id)
+                constraintLayoutCreate.removeAllViews()
+                for (event in viewListCreate) {
+                    constraintLayoutCreate.addView(event)
+                }
 
-            }
-
-            constraintLayoutCreate.removeAllViews()
-            for (event in viewListCreate) {
-                constraintLayoutCreate.addView(event)
-            }
-
-            constraintSetCreate.clone(constraintLayoutCreate)
-            var previousItemCreate: View? = null
-            for (view in viewListCreate) {
-                val lastItem = viewListCreate.indexOf(view) === viewListCreate.size - 1
-                if (previousItemCreate == null) {
-                    constraintSetCreate.connect(
-                        view.id,
-                        ConstraintSet.LEFT,
-                        ConstraintSet.PARENT_ID,
-                        ConstraintSet.LEFT
-                    )
-                } else {
-                    constraintSetCreate.connect(
-                        view.id,
-                        ConstraintSet.BOTTOM,
-                        previousItemCreate.getId(),
-                        ConstraintSet.TOP
-                    )
-                    if (lastItem) {
+                constraintSetCreate.clone(constraintLayoutCreate)
+                var previousItemCreate: View? = null
+                for (view in viewListCreate) {
+                    val lastItem = viewListCreate.indexOf(view) === viewListCreate.size - 1
+                    if (previousItemCreate == null) {
                         constraintSetCreate.connect(
                             view.id,
-                            ConstraintSet.RIGHT,
+                            ConstraintSet.LEFT,
                             ConstraintSet.PARENT_ID,
-                            ConstraintSet.RIGHT
+                            ConstraintSet.LEFT
                         )
+                    } else {
+                        constraintSetCreate.connect(
+                            view.id,
+                            ConstraintSet.BOTTOM,
+                            previousItemCreate.getId(),
+                            ConstraintSet.TOP
+                        )
+                        if (lastItem) {
+                            constraintSetCreate.connect(
+                                view.id,
+                                ConstraintSet.RIGHT,
+                                ConstraintSet.PARENT_ID,
+                                ConstraintSet.RIGHT
+                            )
+                        }
                     }
+                    previousItemCreate = view
                 }
-                previousItemCreate = view
-            }
 
-            if (viewListCreate.size > 1) {
-                constraintSetCreate.createVerticalChain(
-                    ConstraintSet.PARENT_ID,
-                    ConstraintSet.TOP,
-                    ConstraintSet.PARENT_ID,
-                    ConstraintSet.BOTTOM,
-                    viewListIdsCreate.toIntArray(),
-                    null,
-                    ConstraintSet.CHAIN_PACKED
-                )
+                if (viewListCreate.size > 1) {
+                    constraintSetCreate.createVerticalChain(
+                        ConstraintSet.PARENT_ID,
+                        ConstraintSet.TOP,
+                        ConstraintSet.PARENT_ID,
+                        ConstraintSet.BOTTOM,
+                        viewListIdsCreate.toIntArray(),
+                        null,
+                        ConstraintSet.CHAIN_PACKED
+                    )
+                }
+                constraintSetCreate.applyTo(constraintLayoutCreate)
             }
-            constraintSetCreate.applyTo(constraintLayoutCreate)
         }
 
         binding.scrollViewMyEvents.addView(constraintLayoutFollow)
