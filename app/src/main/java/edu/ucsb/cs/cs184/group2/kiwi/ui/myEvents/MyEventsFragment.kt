@@ -32,8 +32,10 @@ class MyEventsFragment : Fragment() {
 
     private lateinit var dr: DatabaseReference
 
-    private var viewList: ArrayList<View> = ArrayList()
-    private var viewListIds: ArrayList<Int> = ArrayList()
+    private var viewListFollow: ArrayList<View> = ArrayList()
+    private var viewListIdsFollow: ArrayList<Int> = ArrayList()
+    private var viewListCreate: ArrayList<View> = ArrayList()
+    private var viewListIdsCreate: ArrayList<Int> = ArrayList()
 
     private val followedEventsViewModel: FollowedEventsViewModel by activityViewModels()
     private val createdEventsViewModel:CreatedEventsViewModel by activityViewModels()
@@ -45,16 +47,15 @@ class MyEventsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMyEventsBinding.inflate(inflater, container, false)
-        val constraintLayout: ConstraintLayout = ConstraintLayout(requireContext())
-        val constraintSet: ConstraintSet = ConstraintSet()
+        val constraintLayoutFollow: ConstraintLayout = ConstraintLayout(requireContext())
+        val constraintSetFollow: ConstraintSet = ConstraintSet()
+        val constraintLayoutCreate: ConstraintLayout = ConstraintLayout(requireContext())
+        val constraintSetCreate: ConstraintSet = ConstraintSet()
         dr = FirebaseDatabase.getInstance().getReference("events")
 
-        viewList.clear()
-        viewListIds.clear()
-
         followedEventsViewModel.events.observe(viewLifecycleOwner) {
-            viewList.clear()
-            viewListIds.clear()
+            viewListFollow.clear()
+            viewListIdsFollow.clear()
             for (e in it) {
                 val eventView: EventsView = EventsView(requireContext())
                 eventView.id = View.generateViewId()
@@ -71,42 +72,42 @@ class MyEventsFragment : Fragment() {
                 eventView.setTime(time)
 
                 eventView.setOnClickListener{ view ->
-                    val event: Event = Event(e.firebase_id, e.name, e.datetime, e.location, e.description)
+                    val event: Event = Event(e.firebase_id, e.name, e.hosted_by, e.datetime, e.location, e.description, e.updates)
                     eventDescriptionViewModel.setEvent(event)
 
-                    view.findNavController().navigate(R.id.action_navigation_events_list_to_navigation_events_description)
+                    view.findNavController().navigate(R.id.action_navigation_my_events_to_navigation_events_description)
                 }
 
-                viewList.add(eventView)
-                viewListIds.add(eventView.id)
+                viewListFollow.add(eventView)
+                viewListIdsFollow.add(eventView.id)
 
             }
 
-            constraintLayout.removeAllViews()
-            for (event in viewList) {
-                constraintLayout.addView(event)
+            constraintLayoutFollow.removeAllViews()
+            for (event in viewListFollow) {
+                constraintLayoutFollow.addView(event)
             }
 
-            constraintSet.clone(constraintLayout)
+            constraintSetFollow.clone(constraintLayoutFollow)
             var previousItem: View? = null
-            for (view in viewList) {
-                val lastItem = viewList.indexOf(view) === viewList.size - 1
+            for (view in viewListFollow) {
+                val lastItem = viewListFollow.indexOf(view) === viewListFollow.size - 1
                 if (previousItem == null) {
-                    constraintSet.connect(
+                    constraintSetFollow.connect(
                         view.id,
                         ConstraintSet.LEFT,
                         ConstraintSet.PARENT_ID,
                         ConstraintSet.LEFT
                     )
                 } else {
-                    constraintSet.connect(
+                    constraintSetFollow.connect(
                         view.id,
                         ConstraintSet.BOTTOM,
                         previousItem.getId(),
                         ConstraintSet.TOP
                     )
                     if (lastItem) {
-                        constraintSet.connect(
+                        constraintSetFollow.connect(
                             view.id,
                             ConstraintSet.RIGHT,
                             ConstraintSet.PARENT_ID,
@@ -117,54 +118,103 @@ class MyEventsFragment : Fragment() {
                 previousItem = view
             }
 
-            if (viewList.size > 1) {
-                constraintSet.createVerticalChain(
+            if (viewListFollow.size > 1) {
+                constraintSetFollow.createVerticalChain(
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.TOP,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.BOTTOM,
-                    viewListIds.toIntArray(),
+                    viewListIdsFollow.toIntArray(),
                     null,
                     ConstraintSet.CHAIN_PACKED
                 )
             }
-            constraintSet.applyTo(constraintLayout)
+            constraintSetFollow.applyTo(constraintLayoutFollow)
 
         }
 
+        createdEventsViewModel.events.observe(viewLifecycleOwner){
+            viewListCreate.clear()
+            viewListIdsCreate.clear()
+            for (e in it) {
+                val eventView: EventsView = EventsView(requireContext())
+                eventView.id = View.generateViewId()
+                eventView.setName(e.name)
 
-        binding.scrollViewMyEvents.addView(constraintLayout)
-        return binding.root
-    }
+                eventView.setLocation(e.location)
+                val c: Calendar = Calendar.getInstance()
+                c.timeInMillis = e.datetime
 
-    fun addToViewList(s:DataSnapshot){
-        val e = s.getValue(Event::class.java)
-        if(e != null){
-            val eventView: EventsView = EventsView(requireContext())
-            eventView.id = View.generateViewId()
-            eventView.setName(e.name)
+                val time: String = convertTime(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE))
+                val date: String = (c.get(Calendar.MONTH)+1).toString() + "/" + c.get(Calendar.DAY_OF_MONTH).toString() + "/" + c.get(Calendar.YEAR).toString()
 
-            eventView.setLocation(e.location)
-            val c: Calendar = Calendar.getInstance()
-            c.timeInMillis = e.datetime
+                eventView.setDate(date)
+                eventView.setTime(time)
 
-            val time: String = convertTime(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE))
-            val date: String = (c.get(Calendar.MONTH)+1).toString() + "/" + c.get(Calendar.DAY_OF_MONTH).toString() + "/" + c.get(
-                Calendar.YEAR).toString()
+                eventView.setOnClickListener{ view ->
+                    val event: Event = Event(e.firebase_id, e.name, e.hosted_by, e.datetime, e.location, e.description, e.updates)
+                    eventDescriptionViewModel.setEvent(event)
 
-            eventView.setDate(date)
-            eventView.setTime(time)
+                    view.findNavController().navigate(R.id.action_navigation_my_events_to_navigation_events_description)
+                }
 
-            eventView.setOnClickListener{ view ->
-                val event: Event = Event(e.firebase_id, e.name, e.datetime, e.location, e.description)
-                eventDescriptionViewModel.setEvent(event)
+                viewListCreate.add(eventView)
+                viewListIdsCreate.add(eventView.id)
 
-                view.findNavController().navigate(R.id.action_navigation_events_list_to_navigation_events_description)
             }
 
-            viewList.add(eventView)
-            viewListIds.add(eventView.id)
+            constraintLayoutCreate.removeAllViews()
+            for (event in viewListCreate) {
+                constraintLayoutCreate.addView(event)
+            }
+
+            constraintSetCreate.clone(constraintLayoutCreate)
+            var previousItemCreate: View? = null
+            for (view in viewListCreate) {
+                val lastItem = viewListCreate.indexOf(view) === viewListCreate.size - 1
+                if (previousItemCreate == null) {
+                    constraintSetCreate.connect(
+                        view.id,
+                        ConstraintSet.LEFT,
+                        ConstraintSet.PARENT_ID,
+                        ConstraintSet.LEFT
+                    )
+                } else {
+                    constraintSetCreate.connect(
+                        view.id,
+                        ConstraintSet.BOTTOM,
+                        previousItemCreate.getId(),
+                        ConstraintSet.TOP
+                    )
+                    if (lastItem) {
+                        constraintSetCreate.connect(
+                            view.id,
+                            ConstraintSet.RIGHT,
+                            ConstraintSet.PARENT_ID,
+                            ConstraintSet.RIGHT
+                        )
+                    }
+                }
+                previousItemCreate = view
+            }
+
+            if (viewListCreate.size > 1) {
+                constraintSetCreate.createVerticalChain(
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.TOP,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.BOTTOM,
+                    viewListIdsCreate.toIntArray(),
+                    null,
+                    ConstraintSet.CHAIN_PACKED
+                )
+            }
+            constraintSetCreate.applyTo(constraintLayoutCreate)
         }
+
+        binding.scrollViewMyEvents.addView(constraintLayoutFollow)
+        binding.scrollViewHostedEvents.addView(constraintLayoutCreate)
+        return binding.root
     }
 
     override fun onDestroyView() {
