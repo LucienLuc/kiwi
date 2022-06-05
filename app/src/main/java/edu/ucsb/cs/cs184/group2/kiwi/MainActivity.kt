@@ -151,7 +151,6 @@ class MainActivity : AppCompatActivity() {
                                         //received results
                                         Log.d("FirebaseLog", "Followed event $name on nod $nodId")
                                     }
-                                    followedEventsViewModel.setEvents(followedEventsList)
                                 }
                             }
 
@@ -161,6 +160,7 @@ class MainActivity : AppCompatActivity() {
                         })
                     }
                 }
+                followedEventsViewModel.setEvents(followedEventsList)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -209,7 +209,6 @@ class MainActivity : AppCompatActivity() {
                                         //received results
                                         Log.d("FirebaseLog", "Created event $name on nod $nodId")
                                     }
-                                    createdEventsViewModel.setEvents(createdEventsList)
                                 }
                             }
 
@@ -219,6 +218,7 @@ class MainActivity : AppCompatActivity() {
                         })
                     }
                 }
+                createdEventsViewModel.setEvents(createdEventsList)
             }
 
             override fun onCancelled(error: DatabaseError) {
