@@ -16,8 +16,8 @@ Goal: <br />
 - Fragment to Fragment Navigation <br />
 - (later on after MVP), Updates, Login, Created Events, Permissions for edit <br />
 
-Christine - I am working on RecyclerView for the events lists <br />
-Lucien - I am working on fixing bugs with Firebase. <br />
+Christine - I am working on user manual and design document. <br />
+Lucien - I am working on finishing up events list and my events and firebase related issues. <br />
 Alan - I am working on finishing up created events for users, and permissions for edit event <br />
-Reiley - I am working on making the events list look better + Searching. <br />
+Reiley - I am working on making the events list look better + working out bugs with the team. <br />
 Khalid - I am working on setting up Updates <br />
