@@ -1,6 +1,7 @@
 package edu.ucsb.cs.cs184.group2.kiwi.ui.myEvents
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -188,6 +189,8 @@ class MyEventsFragment : Fragment() {
 
                     eventView.setDate(date)
                     eventView.setTime(time)
+
+                    Log.d("Test", e.updates)
 
                     eventView.setOnClickListener { view ->
                         val event: Event = Event(
