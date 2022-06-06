@@ -41,8 +41,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         accountViewModel.account.observe(this, Observer { item ->
-            startFirebaseListenerOnFollowedEvents(item)
-            startFirebaseListenerOnCreatedEvents(item)
+            if (item != null) {
+                startFirebaseListenerOnFollowedEvents(item)
+                startFirebaseListenerOnCreatedEvents(item)
+            }
         })
 
         val navView: BottomNavigationView = binding.navView
