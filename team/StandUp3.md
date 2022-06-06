@@ -1,7 +1,7 @@
 # Project: Kiwi
 Meeting Time: May 17th, 9:00pm <br />
 Type of Meeting: Scrum Meeting <br />
-Team: Christine Ong [x], Lucien Luc [x], Alan Zhang [x], Reiley Batelaan [x] <br />
+Team: Christine Ong [x], Lucien Luc [x], Alan Zhang [x], Reiley Batelaan [x], Khalid Mihlar [x] <br />
 Scribe: Christine Ong <br />
 Discussion Leader: Lucien Luc
 # Scribed Discussion: 
