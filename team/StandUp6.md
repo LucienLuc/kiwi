@@ -14,10 +14,10 @@ Goal: <br />
 - Deleting events
 - Making RecyclerView work
 - Fragment to Fragment Navigation <br />
-- (later on after MVP) Upload images, Messaging, Login, Edit Event <br />
+- (later on after MVP), Updates, Login, Edit Event <br />
 
 Christine - I am working on recyclerview for the events lists <br />
 Lucien - I am working on fixing bugs with Firebase. <br />
 Alan - I am working on setting up Login and working on Firebase <br />
 Reiley - I am working on making the events list look better + Searching. <br />
-Khalid - I am working on setting up Messaging <br />
+Khalid - I am working on setting up Updates <br />
