@@ -2,6 +2,8 @@
 Meeting Time: May 17th, 9:00pm <br />
 Type of Meeting: Scrum Meeting <br />
 Team: Christine Ong [x], Lucien Luc [x], Alan Zhang [x], Reiley Batelaan [x] <br />
+Scribe: Christine Ong <br />
+Discussion Leader: Lucien Luc
 # Scribed Discussion: 
 Goal: <br />
 - To help students socialize through finding events. <br />
