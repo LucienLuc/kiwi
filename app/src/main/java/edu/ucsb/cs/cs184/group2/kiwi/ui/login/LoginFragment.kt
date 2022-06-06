@@ -185,5 +185,4 @@ class LoginFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
->>>>>>> d603ad982c25b8c256f9591042975e743569478b
 }
