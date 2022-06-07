@@ -5,6 +5,7 @@ import android.text.Editable
 import android.util.Log
 import android.view.*
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -19,7 +20,10 @@ import com.google.firebase.ktx.Firebase
 import edu.ucsb.cs.cs184.group2.kiwi.R
 import edu.ucsb.cs.cs184.group2.kiwi.databinding.FragmentEventDescriptionBinding
 import edu.ucsb.cs.cs184.group2.kiwi.ui.AccountViewModel
+import edu.ucsb.cs.cs184.group2.kiwi.ui.common.Event
 import edu.ucsb.cs.cs184.group2.kiwi.ui.common.convertTime
+import edu.ucsb.cs.cs184.group2.kiwi.ui.myEvents.CreatedEventsViewModel
+import edu.ucsb.cs.cs184.group2.kiwi.ui.myEvents.FollowedEventsViewModel
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -31,6 +35,8 @@ class EventDescriptionFragment : Fragment() {
     private val binding get() = _binding!!
     private val eventDescriptionViewModel: EventDescriptionViewModel by activityViewModels()
     private val accountViewModel: AccountViewModel by activityViewModels()
+    private val followedEventsViewModel: FollowedEventsViewModel by activityViewModels()
+    private val createdEventsViewModel: CreatedEventsViewModel by activityViewModels()
 
     private var account: GoogleSignInAccount? = null
     private var event_id: String? = null
@@ -135,6 +141,11 @@ class EventDescriptionFragment : Fragment() {
         val updateTextDescription : TextView? = binding.textViewUpdateDescription
         updateTextDescription?.text = updateText
         eventsRef.updateChildren(eventValues)
+
+        if (account != null) {
+            startFirebaseListenerOnCreatedEvents(account!!)
+            startFirebaseListenerOnFollowedEvents(account!!)
+        }
     }
 
     private fun handleHostedEvent() {
@@ -265,5 +276,121 @@ class EventDescriptionFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         findNavController().navigateUp()
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun startFirebaseListenerOnFollowedEvents(account: GoogleSignInAccount) {
+        val database = Firebase.database
+        val eventsRef: DatabaseReference = database.getReference("events")
+        val usersRef: DatabaseReference = database.getReference("users")
+        val userId = account.id
+        val path = userId!! + "/followed_events"
+        val keyedUserFollowedEventsReference: DatabaseReference = usersRef.child(path)
+        val followedEventQuery = keyedUserFollowedEventsReference.orderByValue()
+
+        followedEventQuery.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val followedEventsList = ArrayList<Event>()
+                for (event in snapshot.children) {
+                    for (id in event.children) {
+                        val event_id = id.value.toString()
+                        val eventsQuery = eventsRef.orderByKey().startAt(event_id).limitToFirst(1)
+                        // Query for more information about that event
+                        eventsQuery.addListenerForSingleValueEvent(object:ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                if (dataSnapshot.hasChildren()) {
+                                    val iter: Iterator<DataSnapshot> = dataSnapshot.children.iterator()
+                                    while (iter.hasNext()) {
+                                        val snap = iter.next()
+                                        val nodId = snap.key
+
+                                        val name = snap.child("name").value as String
+                                        val hosted_by = snap.child("hosted_by").value as String
+                                        val datetime = snap.child("datetime").value as Long
+                                        val location = snap.child("location").value as String
+                                        val description = snap.child("description").value as String
+                                        val updates = snap.child("updates").value as String
+
+                                        val e = Event(nodId!!, name, hosted_by, datetime, location, description, updates)
+                                        followedEventsList.add(e)
+
+                                        //received results
+                                        Log.d("FirebaseLog", "Followed event $name on nod $nodId")
+                                    }
+                                }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                Log.w("FirebaseLog", "Failed to read value.", error.toException())
+                            }
+                        })
+                    }
+                }
+                followedEventsViewModel.setEvents(followedEventsList)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w("FirebaseLog", "Failed to read value.", error.toException())
+            }
+        })
+
+    }
+
+    private fun startFirebaseListenerOnCreatedEvents(account: GoogleSignInAccount) {
+        val database = Firebase.database
+        val eventsRef: DatabaseReference = database.getReference("events")
+        val usersRef: DatabaseReference = database.getReference("users")
+        val userId = account.id
+        val path = userId!! + "/created_events"
+        val keyedUserFollowedEventsReference: DatabaseReference = usersRef.child(path)
+        val followedEventQuery = keyedUserFollowedEventsReference.orderByValue()
+
+        followedEventQuery.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val createdEventsList = ArrayList<Event>()
+                for (event in snapshot.children) {
+                    for (id in event.children) {
+                        val event_id = id.value.toString()
+                        val eventsQuery = eventsRef.orderByKey().startAt(event_id).limitToFirst(1)
+                        // Query for more information about that event
+                        eventsQuery.addListenerForSingleValueEvent(object:ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                if (dataSnapshot.hasChildren()) {
+                                    val iter: Iterator<DataSnapshot> = dataSnapshot.children.iterator()
+                                    while (iter.hasNext()) {
+                                        val snap = iter.next()
+                                        val nodId = snap.key
+
+                                        val name = snap.child("name").value as String
+                                        val hosted_by = snap.child("hosted_by").value as String
+                                        val datetime = snap.child("datetime").value as Long
+                                        val location = snap.child("location").value as String
+                                        val description = snap.child("description").value as String
+                                        val updates = snap.child("updates").value as String
+
+                                        val e = Event(nodId!!, name, hosted_by, datetime, location, description, updates)
+                                        createdEventsList.add(e)
+
+                                        //received results
+                                        Log.d("FirebaseLog", "Created event $name on nod $nodId")
+                                    }
+                                }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                Log.w("FirebaseLog", "Failed to read value.", error.toException())
+                            }
+                        })
+                    }
+                }
+                createdEventsViewModel.setEvents(createdEventsList)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w("FirebaseLog", "Failed to read value.", error.toException())
+            }
+        })
+
     }
 }
