@@ -265,6 +265,7 @@ class MyEventsFragment : Fragment() {
 
         binding.scrollViewMyEvents.addView(constraintLayoutFollow)
         binding.scrollViewHostedEvents.addView(constraintLayoutCreate)
+
         return binding.root
     }
 
