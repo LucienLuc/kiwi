@@ -10,6 +10,10 @@ Christine Ong <br />
 Reiley Batelaan <br />
 Khalid Mihlar <br />
 
+# Google OAuth API Key
+
+A SHA1 value for the Google API project must be added for Google Oauth to work on your development device.
+
 # Resources
 - Lots of stack overflow
 - Android Developer Docs
