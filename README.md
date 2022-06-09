@@ -11,6 +11,9 @@ Reiley Batelaan <br />
 Khalid Mihlar <br />
 
 # Resources
+- Lots of stack overflow
+- Android Developer Docs
+
 Event Creation:
 - https://stackoverflow.com/questions/3646415/how-to-create-edittext-with-rounded-corners
 
